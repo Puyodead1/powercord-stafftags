@@ -1,0 +1,8 @@
+{
+    "name": "Example Plugin",
+    "shorthand": "ePlugin",
+    "version": "1.0.0",
+    "description": "A simple plugin template.",
+    "author": "TrueXPixels",
+    "license": "MIT"
+}
