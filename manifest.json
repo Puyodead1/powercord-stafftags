@@ -1,8 +1,8 @@
 {
-    "name": "Example Plugin",
-    "shorthand": "ePlugin",
+    "name": "Ownertag",
+    "shorthand": "powercord-ownertag",
     "version": "1.0.0",
-    "description": "A simple plugin template.",
-    "author": "TrueXPixels",
+    "description": "Adds a tag or crown to the server owner (or admins/management).",
+    "author": "Puyodead1",
     "license": "MIT"
 }
