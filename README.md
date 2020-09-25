@@ -1,11 +1,11 @@
-# powercord-plugin-template
+# powercord-ownertags
 
-Personal powercord plugin template, feel free to use this, although keep in mind I have no idea what I'm doing.
+Displays owner, admin, and staff tags similar to bot tags, they can appear in the member list and/or chat.
 
-| Preview                                 | Settings                            |
-| --------------------------------------- | ----------------------------------- |
-| ![](https://i.plexidev.org/RmG67u3.gif) | ![](https://i.plexidev.org/FmULjPO) |
+| Preview                                     | Settings                            |
+| ------------------------------------------- | ----------------------------------- |
+| ![](https://cdn.moguldevs.xyz/u/14I05G.png) | ![](https://cdn.moguldevs.xyz/u/4NdZXI.png) |
+| ![](https://cdn.moguldevs.xyz/u/Ng3UhJ.png) |                                     | 
+-------------------------------------------------------------------------------------
 
----
-
-Twitter: [@truexpixels](https://twitter.com/truexpixels)
+dis is my first plugin, be kind plz <3
