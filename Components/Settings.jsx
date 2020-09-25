@@ -22,13 +22,22 @@ module.exports = class Settings extends React.Component {
         return (
             <div>
                 <SwitchItem
-                    value={this.getSetting('displayCat', true)}
+                    value={this.getSetting('displayMessages', true)}
                     onChange={() => {
-                        this.toggleSetting('displayCat');
+                        this.toggleSetting('displayMessages');
                     }}
-                    note='If disabled, the image will change to a dog instead.'
+                    note="If disabled, badges won't be shown next to message timestamps."
                 >
-                    Display Cat
+                    Show next to message timestamps
+                </SwitchItem>
+                <SwitchItem
+                    value={this.getSetting('displayMembers', true)}
+                    onChange={() => {
+                        this.toggleSetting('displayMembers');
+                    }}
+                    note="If disabled, badges won't be shown in the member list."
+                >
+                    Show in Member List
                 </SwitchItem>
             </div>
         );
