@@ -9,8 +9,6 @@ const {
 } = require('powercord/webpack');
 
 /* Plugin Specific Packages */
-const { name, shorthand } = require('./manifest.json'); // -> name: 'Project Name', shorthand: 'pName'
-
 const { getChannel } = getModule(['getChannel'], false);
 const { getChannelId } = getModule(['getLastSelectedChannelId'], false);
 const { getGuild } = getModule(['getGuild'], false);
@@ -72,27 +70,27 @@ function getPermissionsRaw(guild, user_id) {
 const Settings = require('./Components/Settings.jsx');
 const Tag = require('./Components/Tag');
 
-module.exports = class MyPlugin extends Plugin {
+module.exports = class OwnerTag extends Plugin {
     /* Entry Point */
     async startPlugin() {
-        this.loadStylesheet('style.scss');
+        this.loadStylesheet('style.css');
         /* Register Settings */
-        powercord.api.settings.registerSettings(shorthand, {
+        powercord.api.settings.registerSettings(this.entityID, {
             category: this.entityID,
-            label: name, // Label that appears in the settings menu
+            label: this.manifest.name, // Label that appears in the settings menu
             render: Settings // The React component to render. In this case, the imported Settings file
         });
 
-        await this.injectMessages();
-        await this.injectMembers();
+        this.injectMessages();
+        this.injectMembers();
     }
 
     async injectMessages() {
         const _this = this;
         const MessageTimestamp = await getModule(['MessageTimestamp']);
-        const botTagRegularClasses = await getModule(m => m.botTagRegular);
-        const botTagCozyClasses = await getModule(m => m.botTagCozy);
-        const remClasses = await getModule(m => m.rem);
+        const botTagRegularClasses = await getModule([ 'botTagRegular' ]);
+        const botTagCozyClasses = await getModule([ 'botTagCozy' ]);
+        const remClasses = await getModule([ 'rem' ]);
 
         /**
          * The following injects a function into the specified module.
@@ -127,12 +125,14 @@ module.exports = class MyPlugin extends Plugin {
                         // is guild owner
                         data = {
                             userType: userTypes.OWNER,
-                            color: member.colorString
+                            color: member.colorString,
+                            textColor: _this._numberToTextColor(member.colorString)
                         };
                     } else if (parsedPermissions['ADMINISTRATOR']) {
                         data = {
                             userType: userTypes.ADMIN,
-                            color: member.colorString
+                            color: member.colorString,
+                            textColor: _this._numberToTextColor(member.colorString)
                         };
                     } else if (
                         parsedPermissions['KICK_MEMBERS'] ||
@@ -141,7 +141,8 @@ module.exports = class MyPlugin extends Plugin {
                     ) {
                         data = {
                             userType: userTypes.MANAGEMENT,
-                            color: member.colorString
+                            color: member.colorString,
+                            textColor: _this._numberToTextColor(member.colorString)
                         };
                     }
                 } else if (channel.type === 3 && channel.ownerId === id) {
@@ -154,8 +155,11 @@ module.exports = class MyPlugin extends Plugin {
                     const element = React.createElement(
                         'span',
                         {
-                            className: `${botTagCozyClasses.botTagCozy} ${botTagCozyClasses.botTag} ${botTagRegularClasses.botTagRegular} ${remClasses.rem} ownertag`,
-                            style: { backgroundColor: data.color }
+                            className: `${botTagCozyClasses.botTagCozy} ${botTagRegularClasses.botTagRegular} ${remClasses.rem} ownertag`,
+                            style: {
+                                backgroundColor: data.color,
+                                color: data.textColor
+                            }
                         },
                         React.createElement(Tag, {
                             className: botTagRegularClasses.botText,
@@ -176,9 +180,8 @@ module.exports = class MyPlugin extends Plugin {
     async injectMembers() {
         const _this = this;
         const MemberListItem = await getModuleByDisplayName('MemberListItem');
-        const botTagRegularClasses = await getModule(m => m.botTagRegular);
-        const botTagCozyClasses = await getModule(m => m.botTagCozy);
-        const remClasses = await getModule(m => m.rem);
+        const botTagRegularClasses = await getModule([ 'botTagRegular' ]);
+        const remClasses = await getModule([ 'rem' ]);
 
         inject(
             'ownertag-members',
@@ -204,12 +207,14 @@ module.exports = class MyPlugin extends Plugin {
                         // is guild owner
                         data = {
                             userType: userTypes.OWNER,
-                            color: member.colorString
+                            color: member.colorString,
+                            textColor: _this._numberToTextColor(member.colorString)
                         };
                     } else if (parsedPermissions['ADMINISTRATOR']) {
                         data = {
                             userType: userTypes.ADMIN,
-                            color: member.colorString
+                            color: member.colorString,
+                            textColor: _this._numberToTextColor(member.colorString)
                         };
                     } else if (
                         parsedPermissions['KICK_MEMBERS'] ||
@@ -218,7 +223,8 @@ module.exports = class MyPlugin extends Plugin {
                     ) {
                         data = {
                             userType: userTypes.MANAGEMENT,
-                            color: member.colorString
+                            color: member.colorString,
+                            textColor: _this._numberToTextColor(member.colorString)
                         };
                     }
                 } else if (
@@ -233,8 +239,8 @@ module.exports = class MyPlugin extends Plugin {
                     const element = React.createElement(
                         'span',
                         {
-                            className: `${botTagCozyClasses.botTagCozy} ${botTagCozyClasses.botTag} ${botTagRegularClasses.botTagRegular} ${remClasses.rem} ownertag-list`,
-                            style: { backgroundColor: data.color }
+                            className: `${remClasses.botTag} ${botTagRegularClasses.botTagRegular} ${remClasses.px} ownertag-list`,
+                            style: { backgroundColor: data.color, color: data.textColor }
                         },
                         React.createElement(Tag, {
                             className: botTagRegularClasses.botText,
@@ -251,8 +257,20 @@ module.exports = class MyPlugin extends Plugin {
 
     pluginWillUnload() {
         // When the plugin is unloaded, we need to unregister/uninject anything we've registered/injected.
-        powercord.api.settings.unregisterSettings(shorthand);
+        powercord.api.settings.unregisterSettings(this.entityID);
         uninject('ownertag-members');
         uninject('ownertag-messages');
+    }
+
+    /*
+     * Original code from https://github.com/powercord-community/rolecolor-everywhere.
+     */
+    _numberToTextColor (color) {
+        const colorInt = parseInt(color.slice(1), 16)
+        const r = (colorInt & 0xFF0000) >>> 16;
+        const g = (colorInt & 0xFF00) >>> 8;
+        const b = colorInt & 0xFF;
+        const bgDelta = (r * 0.299) + (g * 0.587) + (b * 0.114);
+        return ((255 - bgDelta) < 105) ? '#000000' : '#ffffff';
     }
 };

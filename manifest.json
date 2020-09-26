@@ -1,7 +1,6 @@
 {
     "name": "Ownertag",
-    "shorthand": "powercord-ownertag",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Adds a tag or crown to the server owner (or admins/management).",
     "author": "Puyodead1",
     "license": "MIT"
