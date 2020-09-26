@@ -143,7 +143,7 @@ module.exports = class OwnerTag extends Plugin {
                     } else if (parsedPermissions['ADMINISTRATOR']) {
                         const tagColor = _this.settings.get('adminTagColor');
                         data = {
-                            userType: _this.settings.get('showAdminTags')
+                            userType: _this.settings.get('showAdminTags', true)
                                 ? userTypes.ADMIN
                                 : userTypes.NONE,
                             color: tagColor ? tagColor : member.colorString,
