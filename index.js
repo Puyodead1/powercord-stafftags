@@ -386,6 +386,7 @@ module.exports = class OwnerTag extends Plugin {
      * Original code from https://github.com/powercord-community/rolecolor-everywhere.
      */
     _numberToTextColor(color) {
+        if (!color) return; // prevents errors from null colors which come from roles with no colors
         const colorInt = parseInt(color.slice(1), 16);
         const r = (colorInt & 0xff0000) >>> 16;
         const g = (colorInt & 0xff00) >>> 8;
