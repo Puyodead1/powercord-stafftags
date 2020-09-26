@@ -146,7 +146,9 @@ module.exports = class OwnerTag extends Plugin {
                                     ? tagColor
                                     : member.colorString,
                             textColor: _this._numberToTextColor(
-                                tagColor ? tagColor : member.colorString
+                                useCustomColor && tagColor
+                                    ? tagColor
+                                    : member.colorString
                             )
                         };
                     } else if (parsedPermissions['ADMINISTRATOR']) {
@@ -166,7 +168,7 @@ module.exports = class OwnerTag extends Plugin {
                                     ? tagColor
                                     : member.colorString,
                             textColor: _this._numberToTextColor(
-                                tagColor && tagColor !== ''
+                                useCustomColor && tagColor
                                     ? tagColor
                                     : member.colorString
                             )
@@ -192,7 +194,9 @@ module.exports = class OwnerTag extends Plugin {
                                     ? tagColor
                                     : member.colorString,
                             textColor: _this._numberToTextColor(
-                                tagColor ? tagColor : member.colorString
+                                useCustomColor && tagColor
+                                    ? tagColor
+                                    : member.colorString
                             )
                         };
                     } else if (
@@ -215,8 +219,10 @@ module.exports = class OwnerTag extends Plugin {
                                 useCustomColor && tagColor
                                     ? tagColor
                                     : member.colorString,
-                            textColor: _this._numberToTextColor(
-                                tagColor ? tagColor : member.colorString
+                            textColor: __this._numberToTextColor(
+                                useCustomColor && tagColor
+                                    ? tagColor
+                                    : member.colorString
                             )
                         };
                     }
