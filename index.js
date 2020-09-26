@@ -132,7 +132,9 @@ module.exports = class OwnerTag extends Plugin {
                         // is guild owner
                         const tagColor = _this.settings.get('ownerTagColor');
                         data = {
-                            userType: userTypes.OWNER,
+                            userType: _this.settings.get('showOwnerTags', true)
+                                ? userTypes.OWNER
+                                : userTypes.NONE,
                             color:
                                 tagColor && tagColor !== ''
                                     ? tagColor
@@ -144,9 +146,14 @@ module.exports = class OwnerTag extends Plugin {
                             )
                         };
                     } else if (parsedPermissions['ADMINISTRATOR']) {
-                        const tagColor = _this.settings.get('adminTagColor');
+                        const tagColor = _this.settings.get(
+                            'adminTagColor',
+                            true
+                        );
                         data = {
-                            userType: userTypes.ADMIN,
+                            userType: _this.settings.get('showAdminTags')
+                                ? userTypes.ADMIN
+                                : userTypes.NONE,
                             color:
                                 tagColor && tagColor !== ''
                                     ? tagColor
@@ -164,7 +171,9 @@ module.exports = class OwnerTag extends Plugin {
                     ) {
                         const tagColor = _this.settings.get('modTagColor');
                         data = {
-                            userType: userTypes.MOD,
+                            userType: _this.settings.get('showModTags', true)
+                                ? userTypes.MOD
+                                : userTypes.NONE,
                             color:
                                 tagColor && tagColor !== ''
                                     ? tagColor
@@ -182,7 +191,9 @@ module.exports = class OwnerTag extends Plugin {
                     ) {
                         const tagColor = _this.settings.get('staffTagColor');
                         data = {
-                            userType: userTypes.STAFF,
+                            userType: _this.settings.get('showStaffTags', true)
+                                ? userTypes.STAFF
+                                : userTypes.NONE,
                             color:
                                 tagColor && tagColor !== ''
                                     ? tagColor
@@ -200,7 +211,7 @@ module.exports = class OwnerTag extends Plugin {
                 }
 
                 //const element = React.createElement(Tag, { userid: id });
-                if (data) {
+                if (data && data.userType !== userTypes.NONE) {
                     // const textColor = _this.settings.get('textColor');
                     const element = React.createElement(
                         'span',
@@ -263,7 +274,9 @@ module.exports = class OwnerTag extends Plugin {
                         // is guild owner
                         const tagColor = _this.settings.get('ownerTagColor');
                         data = {
-                            userType: userTypes.OWNER,
+                            userType: _this.settings.get('showOwnerTags', true)
+                                ? userTypes.OWNER
+                                : userTypes.NONE,
                             color:
                                 tagColor && tagColor !== ''
                                     ? tagColor
@@ -277,7 +290,9 @@ module.exports = class OwnerTag extends Plugin {
                     } else if (parsedPermissions['ADMINISTRATOR']) {
                         const tagColor = _this.settings.get('adminTagColor');
                         data = {
-                            userType: userTypes.ADMIN,
+                            userType: _this.settings.get('showAdminTags', true)
+                                ? userTypes.ADMIN
+                                : userTypes.NONE,
                             color:
                                 tagColor && tagColor !== ''
                                     ? tagColor
@@ -295,7 +310,9 @@ module.exports = class OwnerTag extends Plugin {
                     ) {
                         const tagColor = _this.settings.get('modTagColor');
                         data = {
-                            userType: userTypes.MOD,
+                            userType: _this.settings.get('showModTags', true)
+                                ? userTypes.MOD
+                                : userTypes.NONE,
                             color:
                                 tagColor && tagColor !== ''
                                     ? tagColor
@@ -313,7 +330,9 @@ module.exports = class OwnerTag extends Plugin {
                     ) {
                         const tagColor = _this.settings.get('staffTagColor');
                         data = {
-                            userType: userTypes.STAFF,
+                            userType: _this.settings.get('showStaffTags', true)
+                                ? userTypes.STAFF
+                                : userTypes.NONE,
                             color:
                                 tagColor && tagColor !== ''
                                     ? tagColor
@@ -333,7 +352,7 @@ module.exports = class OwnerTag extends Plugin {
                     data = { userType: userTypes.OWNER };
                 }
 
-                if (data) {
+                if (data && data.userType !== userTypes.NONE) {
                     const element = React.createElement(
                         'span',
                         {
