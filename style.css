@@ -1,17 +1,18 @@
 .ownertag {
     padding-left: 6px;
     padding-right: 6px;
-    color: #ffffff !important;
+    color: #fff;
 }
 
 .ownertag-list {
-    color: #ffffff !important;
+    color: #fff;
     margin-left: 5px;
 }
 
 .botText-1526X_ {
-    color: #ffffff;
+    color: inherit;
 }
+
 .botTagVerified-1klIIt {
-    color: #ffffff;
+    color: #fff;
 }
