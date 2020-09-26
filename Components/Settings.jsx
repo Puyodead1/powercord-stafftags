@@ -3,7 +3,7 @@ const { React } = require('powercord/webpack');
 
 /* Plugin Specific Packages */
 // There are many more componenets available in "powercord/components/settings".
-const { SwitchItem, TextInput } = require('powercord/components/settings');
+const { SwitchItem, TextInput, ColorPickerInput } = require('powercord/components/settings');
 
 module.exports = class Settings extends React.PureComponent {
     /**
@@ -17,7 +17,7 @@ module.exports = class Settings extends React.PureComponent {
                 <SwitchItem
                     value={this.props.getSetting('showOwnerTag', true)}
                     onChange={() => {
-                        this.props.toggleSetting('showOwnerTag');
+                        this.props.toggleSetting('showOwnerTag', true);
                     }}
                     note="If disabled, owner tags won't show anywhere"
                 >
@@ -26,7 +26,7 @@ module.exports = class Settings extends React.PureComponent {
                 <SwitchItem
                     value={this.props.getSetting('showAdminTags', true)}
                     onChange={() => {
-                        this.props.toggleSetting('showAdminTags');
+                        this.props.toggleSetting('showAdminTags', true);
                     }}
                     note="If disabled, admin tags won't be shown anywhere. Admin tags look for the Administrator permission"
                 >
@@ -35,7 +35,7 @@ module.exports = class Settings extends React.PureComponent {
                 <SwitchItem
                     value={this.props.getSetting('showModTags', true)}
                     onChange={() => {
-                        this.props.toggleSetting('showModTags');
+                        this.props.toggleSetting('showModTags', true);
                     }}
                     note="If disabled, mod tags won't be shown anywhere. Mod tags look for kick/ban members and manage message permission"
                 >
@@ -44,7 +44,7 @@ module.exports = class Settings extends React.PureComponent {
                 <SwitchItem
                     value={this.props.getSetting('showStaffTags', true)}
                     onChange={() => {
-                        this.props.toggleSetting('showStaffTags');
+                        this.props.toggleSetting('showStaffTags', true);
                     }}
                     note="If disabled, staff tags won't be shown anywhere. Staff tags look for manage channels, manage server, or manage roles"
                 >
@@ -53,7 +53,7 @@ module.exports = class Settings extends React.PureComponent {
                 <SwitchItem
                     value={this.props.getSetting('displayMessages', true)}
                     onChange={() => {
-                        this.props.toggleSetting('displayMessages');
+                        this.props.toggleSetting('displayMessages', true);
                     }}
                     note="If disabled, badges won't be shown in chat."
                 >
@@ -62,7 +62,7 @@ module.exports = class Settings extends React.PureComponent {
                 <SwitchItem
                     value={this.props.getSetting('displayMembers', true)}
                     onChange={() => {
-                        this.props.toggleSetting('displayMembers');
+                        this.props.toggleSetting('displayMembers', true);
                     }}
                     note="If disabled, badges won't be shown in the member list."
                 >
@@ -71,12 +71,13 @@ module.exports = class Settings extends React.PureComponent {
                 <SwitchItem
                     value={this.props.getSetting('showForBots', true)}
                     onChange={() => {
-                        this.props.toggleSetting('showForBots');
+                        this.props.toggleSetting('showForBots', true);
                     }}
                     note="If disabled, badges won't be shown anywhere for bots. (WIP)"
                 >
                     Show for Bots
                 </SwitchItem>
+
                 <SwitchItem
                     value={this.props.getSetting('useCustomOwnerColor', false)}
                     onChange={() => {
@@ -86,15 +87,15 @@ module.exports = class Settings extends React.PureComponent {
                 >
                     Use Custom Owner Color
                 </SwitchItem>
-                <TextInput
-                    note='This will override owner tags using role colors! Must be a hex color starting with #'
-                    value={this.props.getSetting('ownerTagColor', '#ED9F1B')}
-                    onChange={e => {
-                        this.props.updateSetting('ownerTagColor', e);
-                    }}
+                {this.props.getSetting('useCustomOwnerColor') && <ColorPickerInput
+                    note={'Overrides owner tags color. By default, uses the color of the user\'s highest role.'}
+                    onChange={c => this.props.updateSetting('ownerTagColor', c ? this._numberToHex(c) : null)}
+                    default={parseInt('ED9F1B', 16)}
+                    value={this.getColorSetting('ownerTagColor')}
                 >
                     Owner Tag Color
-                </TextInput>
+                </ColorPickerInput>}
+
                 <SwitchItem
                     value={this.props.getSetting('useCustomAdminColor', false)}
                     onChange={() => {
@@ -104,33 +105,15 @@ module.exports = class Settings extends React.PureComponent {
                 >
                     Use Custom Admin Color
                 </SwitchItem>
-                <TextInput
-                    note='This will override admin tags using role colors! Must be a hex color starting with #'
-                    value={this.props.getSetting('adminTagColor', '#B4B4B4')}
-                    onChange={e => {
-                        this.props.updateSetting('adminTagColor', e);
-                    }}
+                {this.props.getSetting('useCustomAdminColor') && <ColorPickerInput
+                    note={'Overrides admin tags color. By default, uses the color of the user\'s highest role.'}
+                    onChange={c => this.props.updateSetting('adminTagColor', c ? this._numberToHex(c) : null)}
+                    default={parseInt('B4B4B4', 16)}
+                    value={this.getColorSetting('adminTagColor')}
                 >
                     Admin Tag Color
-                </TextInput>
-                <SwitchItem
-                    value={this.props.getSetting('useCustomModColor', false)}
-                    onChange={() => {
-                        this.props.toggleSetting('useCustomModColor');
-                    }}
-                    note='If enabled, custom colors entered below will be used (if color box is empty, highest role color is used)'
-                >
-                    Use Custom Mod Color
-                </SwitchItem>
-                <TextInput
-                    note='This will override mod tags using role colors! Must be a hex color starting with #'
-                    value={this.props.getSetting('modTagColor', '#C8682E')}
-                    onChange={e => {
-                        this.props.updateSetting('modTagColor', e);
-                    }}
-                >
-                    Mod Tag Color
-                </TextInput>
+                </ColorPickerInput>}
+
                 <SwitchItem
                     value={this.props.getSetting('useCustomStaffColor', false)}
                     onChange={() => {
@@ -140,16 +123,46 @@ module.exports = class Settings extends React.PureComponent {
                 >
                     Use Custom Staff Color
                 </SwitchItem>
-                <TextInput
-                    note='This will override staff tags using role colors! Must be a hex color starting with #'
-                    value={this.props.getSetting('staffTagColor', '#8D5C51')}
-                    onChange={e => {
-                        this.props.updateSetting('staffTagColor', e);
-                    }}
+                {this.props.getSetting('useCustomStaffColor') && <ColorPickerInput
+                    note={'Overrides staff tags color. By default, uses the color of the user\'s highest role.'}
+                    onChange={c => this.props.updateSetting('staffTagColor', c ? this._numberToHex(c) : null)}
+                    default={parseInt('8D5C51', 16)}
+                    value={this.getColorSetting('staffTagColor')}
                 >
                     Staff Tag Color
-                </TextInput>
+                </ColorPickerInput>}
+
+                <SwitchItem
+                    value={this.props.getSetting('useCustomModColor', false)}
+                    onChange={() => {
+                        this.props.toggleSetting('useCustomModColor');
+                    }}
+                    note='If enabled, custom colors entered below will be used (if color box is empty, highest role color is used)'
+                >
+                    Use Custom Mod Color
+                </SwitchItem>
+                {this.props.getSetting('useCustomModColor') && <ColorPickerInput
+                    note={'Overrides mod tags color. By default, uses the color of the user\'s highest role.'}
+                    onChange={c => this.props.updateSetting('modTagColor', c ? this._numberToHex(c) : null)}
+                    default={parseInt('C8682E', 16)}
+                    value={this.getColorSetting('modTagColor')}
+                >
+                    Mod Tag Color
+                </ColorPickerInput>}
+
             </div>
         );
+    }
+
+    getColorSetting (setting) {
+        const hex = this.props.getSetting(setting)
+        return hex ? parseInt(hex.slice(1), 16) : 0
+    }
+
+    _numberToHex (color) {
+        const r = (color & 0xFF0000) >>> 16;
+        const g = (color & 0xFF00) >>> 8;
+        const b = color & 0xFF;
+        return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`
     }
 };
