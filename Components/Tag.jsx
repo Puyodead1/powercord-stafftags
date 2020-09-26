@@ -23,7 +23,7 @@ class Tag extends React.PureComponent {
         } else if (this.props.userType === userTypes.MOD) {
             return <div className={`${this.props.className}`}>Mod</div>;
         } else if (this.props.userType === userTypes.STAFF) {
-            return <div className={`${this.props.className}`}>asdasd</div>;
+            return <div className={`${this.props.className}`}>Staff</div>;
         }
         return null;
     }

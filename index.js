@@ -165,14 +165,14 @@ module.exports = class OwnerTag extends Plugin {
                             )
                         };
                     } else if (
-                        parsedPermissions['KICK_MEMBERS'] ||
-                        parsedPermissions['BAN_MEMBERS'] ||
-                        parsedPermissions['MANAGE_MESSAGES']
+                        parsedPermissions['MANAGE_SERVER'] ||
+                        parsedPermissions['MANAGE_CHANNELS'] ||
+                        parsedPermissions['MANAGE_ROLES']
                     ) {
-                        const tagColor = _this.settings.get('modTagColor');
+                        const tagColor = _this.settings.get('staffTagColor');
                         data = {
-                            userType: _this.settings.get('showModTags', true)
-                                ? userTypes.MOD
+                            userType: _this.settings.get('showStaffTags', true)
+                                ? userTypes.STAFF
                                 : userTypes.NONE,
                             color:
                                 tagColor && tagColor !== ''
@@ -185,14 +185,14 @@ module.exports = class OwnerTag extends Plugin {
                             )
                         };
                     } else if (
-                        parsedPermissions['MANAGE_SERVER'] ||
-                        parsedPermissions['MANAGE_CHANNELS'] ||
-                        parsedPermissions['MANAGE_ROLES']
+                        parsedPermissions['KICK_MEMBERS'] ||
+                        parsedPermissions['BAN_MEMBERS'] ||
+                        parsedPermissions['MANAGE_MESSAGES']
                     ) {
-                        const tagColor = _this.settings.get('staffTagColor');
+                        const tagColor = _this.settings.get('modTagColor');
                         data = {
-                            userType: _this.settings.get('showStaffTags', true)
-                                ? userTypes.STAFF
+                            userType: _this.settings.get('showModTags', true)
+                                ? userTypes.MOD
                                 : userTypes.NONE,
                             color:
                                 tagColor && tagColor !== ''
@@ -304,14 +304,14 @@ module.exports = class OwnerTag extends Plugin {
                             )
                         };
                     } else if (
-                        parsedPermissions['KICK_MEMBERS'] ||
-                        parsedPermissions['BAN_MEMBERS'] ||
-                        parsedPermissions['MANAGE_MESSAGES']
+                        parsedPermissions['MANAGE_SERVER'] ||
+                        parsedPermissions['MANAGE_CHANNELS'] ||
+                        parsedPermissions['MANAGE_ROLES']
                     ) {
-                        const tagColor = _this.settings.get('modTagColor');
+                        const tagColor = _this.settings.get('staffTagColor');
                         data = {
-                            userType: _this.settings.get('showModTags', true)
-                                ? userTypes.MOD
+                            userType: _this.settings.get('showStaffTags', true)
+                                ? userTypes.STAFF
                                 : userTypes.NONE,
                             color:
                                 tagColor && tagColor !== ''
@@ -324,14 +324,14 @@ module.exports = class OwnerTag extends Plugin {
                             )
                         };
                     } else if (
-                        parsedPermissions['MANAGE_SERVER'] ||
-                        parsedPermissions['MANAGE_CHANNELS'] ||
-                        parsedPermissions['MANAGE_ROLES']
+                        parsedPermissions['KICK_MEMBERS'] ||
+                        parsedPermissions['BAN_MEMBERS'] ||
+                        parsedPermissions['MANAGE_MESSAGES']
                     ) {
-                        const tagColor = _this.settings.get('staffTagColor');
+                        const tagColor = _this.settings.get('modTagColor');
                         data = {
-                            userType: _this.settings.get('showStaffTags', true)
-                                ? userTypes.STAFF
+                            userType: _this.settings.get('showModTags', true)
+                                ? userTypes.MOD
                                 : userTypes.NONE,
                             color:
                                 tagColor && tagColor !== ''

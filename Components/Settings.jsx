@@ -71,7 +71,7 @@ module.exports = class Settings extends React.PureComponent {
                 <SwitchItem
                     value={this.props.getSetting('showForBots', true)}
                     onChange={() => {
-                        this.props.toggleSetting('showForBots');
+                        this.props.toggleSetting('showForBots', true);
                     }}
                     note="If disabled, badges won't be shown anywhere for bots. (WIP)"
                 >
