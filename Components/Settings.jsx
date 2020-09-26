@@ -78,7 +78,7 @@ module.exports = class Settings extends React.PureComponent {
                     Show for Bots
                 </SwitchItem>
                 <TextInput
-                    note='This will override owner tags using role colors!'
+                    note='This will override owner tags using role colors! Must be a hex color starting with #'
                     value={this.props.getSetting('ownerTagColor')}
                     onChange={e => {
                         this.props.updateSetting('ownerTagColor', e);
@@ -87,7 +87,7 @@ module.exports = class Settings extends React.PureComponent {
                     Owner Tag Color
                 </TextInput>
                 <TextInput
-                    note='This will override admin tags using role colors!'
+                    note='This will override admin tags using role colors! Must be a hex color starting with #'
                     value={this.props.getSetting('adminTagColor')}
                     onChange={e => {
                         this.props.updateSetting('adminTagColor', e);
@@ -96,7 +96,7 @@ module.exports = class Settings extends React.PureComponent {
                     Admin Tag Color
                 </TextInput>
                 <TextInput
-                    note='This will override mod tags using role colors!'
+                    note='This will override mod tags using role colors! Must be a hex color starting with #'
                     value={this.props.getSetting('modTagColor')}
                     onChange={e => {
                         this.props.updateSetting('modTagColor', e);
@@ -105,7 +105,7 @@ module.exports = class Settings extends React.PureComponent {
                     Mod Tag Color
                 </TextInput>
                 <TextInput
-                    note='This will override staff tags using role colors!'
+                    note='This will override staff tags using role colors! Must be a hex color starting with #'
                     value={this.props.getSetting('staffTagColor')}
                     onChange={e => {
                         this.props.updateSetting('staffTagColor', e);
