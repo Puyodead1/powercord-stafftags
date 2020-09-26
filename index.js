@@ -130,23 +130,41 @@ module.exports = class OwnerTag extends Plugin {
 
                     if (guild.ownerId === id) {
                         // is guild owner
-                        const tagColor = _this.settings.get('ownerTagColor');
+                        const tagColor = _this.settings.get(
+                            'ownerTagColor',
+                            '#ED9F1B'
+                        );
+                        const useCustomColor = _this.settings.get(
+                            'useCustomOwnerColor'
+                        );
                         data = {
                             userType: _this.settings.get('showOwnerTags', true)
                                 ? userTypes.OWNER
                                 : userTypes.NONE,
-                            color: tagColor ? tagColor : member.colorString,
+                            color:
+                                useCustomColor && tagColor
+                                    ? tagColor
+                                    : member.colorString,
                             textColor: _this._numberToTextColor(
                                 tagColor ? tagColor : member.colorString
                             )
                         };
                     } else if (parsedPermissions['ADMINISTRATOR']) {
-                        const tagColor = _this.settings.get('adminTagColor');
+                        const tagColor = _this.settings.get(
+                            'adminTagColor',
+                            '#B4B4B4'
+                        );
+                        const useCustomColor = _this.settings.get(
+                            'useCustomAdminColor'
+                        );
                         data = {
                             userType: _this.settings.get('showAdminTags', true)
                                 ? userTypes.ADMIN
                                 : userTypes.NONE,
-                            color: tagColor ? tagColor : member.colorString,
+                            color:
+                                useCustomColor && tagColor
+                                    ? tagColor
+                                    : member.colorString,
                             textColor: _this._numberToTextColor(
                                 tagColor && tagColor !== ''
                                     ? tagColor
@@ -158,12 +176,21 @@ module.exports = class OwnerTag extends Plugin {
                         parsedPermissions['MANAGE_CHANNELS'] ||
                         parsedPermissions['MANAGE_ROLES']
                     ) {
-                        const tagColor = _this.settings.get('staffTagColor');
+                        const tagColor = _this.settings.get(
+                            'staffTagColor',
+                            '#8D5C51'
+                        );
+                        const useCustomColor = _this.settings.get(
+                            'useCustomStaffColor'
+                        );
                         data = {
                             userType: _this.settings.get('showStaffTags', true)
                                 ? userTypes.STAFF
                                 : userTypes.NONE,
-                            color: tagColor ? tagColor : member.colorString,
+                            color:
+                                useCustomColor && tagColor
+                                    ? tagColor
+                                    : member.colorString,
                             textColor: _this._numberToTextColor(
                                 tagColor ? tagColor : member.colorString
                             )
@@ -173,12 +200,21 @@ module.exports = class OwnerTag extends Plugin {
                         parsedPermissions['BAN_MEMBERS'] ||
                         parsedPermissions['MANAGE_MESSAGES']
                     ) {
-                        const tagColor = _this.settings.get('modTagColor');
+                        const tagColor = _this.settings.get(
+                            'modTagColor',
+                            '#C8682E'
+                        );
+                        const useCustomColor = _this.settings.get(
+                            'useCustomModColor'
+                        );
                         data = {
                             userType: _this.settings.get('showModTags', true)
                                 ? userTypes.MOD
                                 : userTypes.NONE,
-                            color: tagColor ? tagColor : member.colorString,
+                            color:
+                                useCustomColor && tagColor
+                                    ? tagColor
+                                    : member.colorString,
                             textColor: _this._numberToTextColor(
                                 tagColor ? tagColor : member.colorString
                             )
@@ -251,25 +287,45 @@ module.exports = class OwnerTag extends Plugin {
 
                     if (guild.ownerId === id) {
                         // is guild owner
-                        const tagColor = _this.settings.get('ownerTagColor');
+                        const tagColor = _this.settings.get(
+                            'ownerTagColor',
+                            '#ED9F1B'
+                        );
+                        const useCustomColor = _this.settings.get(
+                            'useCustomOwnerColor'
+                        );
                         data = {
                             userType: _this.settings.get('showOwnerTags', true)
                                 ? userTypes.OWNER
                                 : userTypes.NONE,
-                            color: tagColor ? tagColor : member.colorString,
+                            color:
+                                useCustomColor && tagColor
+                                    ? tagColor
+                                    : member.colorString,
                             textColor: _this._numberToTextColor(
                                 tagColor ? tagColor : member.colorString
                             )
                         };
                     } else if (parsedPermissions['ADMINISTRATOR']) {
-                        const tagColor = _this.settings.get('adminTagColor');
+                        const tagColor = _this.settings.get(
+                            'adminTagColor',
+                            '#B4B4B4'
+                        );
+                        const useCustomColor = _this.settings.get(
+                            'useCustomAdminColor'
+                        );
                         data = {
                             userType: _this.settings.get('showAdminTags', true)
                                 ? userTypes.ADMIN
                                 : userTypes.NONE,
-                            color: tagColor ? tagColor : member.colorString,
+                            color:
+                                useCustomColor && tagColor
+                                    ? tagColor
+                                    : member.colorString,
                             textColor: _this._numberToTextColor(
-                                tagColor ? tagColor : member.colorString
+                                tagColor && tagColor !== ''
+                                    ? tagColor
+                                    : member.colorString
                             )
                         };
                     } else if (
@@ -277,12 +333,21 @@ module.exports = class OwnerTag extends Plugin {
                         parsedPermissions['MANAGE_CHANNELS'] ||
                         parsedPermissions['MANAGE_ROLES']
                     ) {
-                        const tagColor = _this.settings.get('staffTagColor');
+                        const tagColor = _this.settings.get(
+                            'staffTagColor',
+                            '#8D5C51'
+                        );
+                        const useCustomColor = _this.settings.get(
+                            'useCustomStaffColor'
+                        );
                         data = {
                             userType: _this.settings.get('showStaffTags', true)
                                 ? userTypes.STAFF
                                 : userTypes.NONE,
-                            color: tagColor ? tagColor : member.colorString,
+                            color:
+                                useCustomColor && tagColor
+                                    ? tagColor
+                                    : member.colorString,
                             textColor: _this._numberToTextColor(
                                 tagColor ? tagColor : member.colorString
                             )
@@ -292,12 +357,21 @@ module.exports = class OwnerTag extends Plugin {
                         parsedPermissions['BAN_MEMBERS'] ||
                         parsedPermissions['MANAGE_MESSAGES']
                     ) {
-                        const tagColor = _this.settings.get('modTagColor');
+                        const tagColor = _this.settings.get(
+                            'modTagColor',
+                            '#C8682E'
+                        );
+                        const useCustomColor = _this.settings.get(
+                            'useCustomModColor'
+                        );
                         data = {
                             userType: _this.settings.get('showModTags', true)
                                 ? userTypes.MOD
                                 : userTypes.NONE,
-                            color: tagColor ? tagColor : member.colorString,
+                            color:
+                                useCustomColor && tagColor
+                                    ? tagColor
+                                    : member.colorString,
                             textColor: _this._numberToTextColor(
                                 tagColor ? tagColor : member.colorString
                             )
@@ -326,7 +400,10 @@ module.exports = class OwnerTag extends Plugin {
                             userType: data.userType
                         })
                     );
-                    res.props.children.unshift(element);
+                    const size = res.props.children.length;
+                    res.props.children[size] = res.props.children[size - 1];
+                    res.props.children[size - 1] = element;
+                    // res.props.children.unshift(element);
                 }
 
                 return res;

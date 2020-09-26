@@ -55,9 +55,9 @@ module.exports = class Settings extends React.PureComponent {
                     onChange={() => {
                         this.props.toggleSetting('displayMessages');
                     }}
-                    note="If disabled, badges won't be shown next to message timestamps."
+                    note="If disabled, badges won't be shown in chat."
                 >
-                    Show next to message timestamps
+                    Show in Chat
                 </SwitchItem>
                 <SwitchItem
                     value={this.props.getSetting('displayMembers', true)}
@@ -71,42 +71,78 @@ module.exports = class Settings extends React.PureComponent {
                 <SwitchItem
                     value={this.props.getSetting('showForBots', true)}
                     onChange={() => {
-                        this.props.toggleSetting('showForBots', true);
+                        this.props.toggleSetting('showForBots');
                     }}
                     note="If disabled, badges won't be shown anywhere for bots. (WIP)"
                 >
                     Show for Bots
                 </SwitchItem>
+                <SwitchItem
+                    value={this.props.getSetting('useCustomOwnerColor', false)}
+                    onChange={() => {
+                        this.props.toggleSetting('useCustomOwnerColor');
+                    }}
+                    note='If enabled, custom colors entered below will be used (if color box is empty, highest role color is used)'
+                >
+                    Use Custom Owner Color
+                </SwitchItem>
                 <TextInput
                     note='This will override owner tags using role colors! Must be a hex color starting with #'
-                    value={this.props.getSetting('ownerTagColor')}
+                    value={this.props.getSetting('ownerTagColor', '#ED9F1B')}
                     onChange={e => {
                         this.props.updateSetting('ownerTagColor', e);
                     }}
                 >
                     Owner Tag Color
                 </TextInput>
+                <SwitchItem
+                    value={this.props.getSetting('useCustomAdminColor', false)}
+                    onChange={() => {
+                        this.props.toggleSetting('useCustomAdminColor');
+                    }}
+                    note='If enabled, custom colors entered below will be used (if color box is empty, highest role color is used)'
+                >
+                    Use Custom Admin Color
+                </SwitchItem>
                 <TextInput
                     note='This will override admin tags using role colors! Must be a hex color starting with #'
-                    value={this.props.getSetting('adminTagColor')}
+                    value={this.props.getSetting('adminTagColor', '#B4B4B4')}
                     onChange={e => {
                         this.props.updateSetting('adminTagColor', e);
                     }}
                 >
                     Admin Tag Color
                 </TextInput>
+                <SwitchItem
+                    value={this.props.getSetting('useCustomModColor', false)}
+                    onChange={() => {
+                        this.props.toggleSetting('useCustomModColor');
+                    }}
+                    note='If enabled, custom colors entered below will be used (if color box is empty, highest role color is used)'
+                >
+                    Use Custom Mod Color
+                </SwitchItem>
                 <TextInput
                     note='This will override mod tags using role colors! Must be a hex color starting with #'
-                    value={this.props.getSetting('modTagColor')}
+                    value={this.props.getSetting('modTagColor', '#C8682E')}
                     onChange={e => {
                         this.props.updateSetting('modTagColor', e);
                     }}
                 >
                     Mod Tag Color
                 </TextInput>
+                <SwitchItem
+                    value={this.props.getSetting('useCustomStaffColor', false)}
+                    onChange={() => {
+                        this.props.toggleSetting('useCustomStaffColor');
+                    }}
+                    note='If enabled, custom colors entered below will be used (if color box is empty, highest role color is used)'
+                >
+                    Use Custom Staff Color
+                </SwitchItem>
                 <TextInput
                     note='This will override staff tags using role colors! Must be a hex color starting with #'
-                    value={this.props.getSetting('staffTagColor')}
+                    value={this.props.getSetting('staffTagColor', '#8D5C51')}
                     onChange={e => {
                         this.props.updateSetting('staffTagColor', e);
                     }}
