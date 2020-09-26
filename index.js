@@ -135,29 +135,18 @@ module.exports = class OwnerTag extends Plugin {
                             userType: _this.settings.get('showOwnerTags', true)
                                 ? userTypes.OWNER
                                 : userTypes.NONE,
-                            color:
-                                tagColor && tagColor !== ''
-                                    ? tagColor
-                                    : member.colorString,
+                            color: tagColor ? tagColor : member.colorString,
                             textColor: _this._numberToTextColor(
-                                tagColor && tagColor !== ''
-                                    ? tagColor
-                                    : member.colorString
+                                tagColor ? tagColor : member.colorString
                             )
                         };
                     } else if (parsedPermissions['ADMINISTRATOR']) {
-                        const tagColor = _this.settings.get(
-                            'adminTagColor',
-                            true
-                        );
+                        const tagColor = _this.settings.get('adminTagColor');
                         data = {
                             userType: _this.settings.get('showAdminTags')
                                 ? userTypes.ADMIN
                                 : userTypes.NONE,
-                            color:
-                                tagColor && tagColor !== ''
-                                    ? tagColor
-                                    : member.colorString,
+                            color: tagColor ? tagColor : member.colorString,
                             textColor: _this._numberToTextColor(
                                 tagColor && tagColor !== ''
                                     ? tagColor
@@ -174,14 +163,9 @@ module.exports = class OwnerTag extends Plugin {
                             userType: _this.settings.get('showStaffTags', true)
                                 ? userTypes.STAFF
                                 : userTypes.NONE,
-                            color:
-                                tagColor && tagColor !== ''
-                                    ? tagColor
-                                    : member.colorString,
+                            color: tagColor ? tagColor : member.colorString,
                             textColor: _this._numberToTextColor(
-                                tagColor && tagColor !== ''
-                                    ? tagColor
-                                    : member.colorString
+                                tagColor ? tagColor : member.colorString
                             )
                         };
                     } else if (
@@ -194,14 +178,9 @@ module.exports = class OwnerTag extends Plugin {
                             userType: _this.settings.get('showModTags', true)
                                 ? userTypes.MOD
                                 : userTypes.NONE,
-                            color:
-                                tagColor && tagColor !== ''
-                                    ? tagColor
-                                    : member.colorString,
+                            color: tagColor ? tagColor : member.colorString,
                             textColor: _this._numberToTextColor(
-                                tagColor && tagColor !== ''
-                                    ? tagColor
-                                    : member.colorString
+                                tagColor ? tagColor : member.colorString
                             )
                         };
                     }
@@ -277,14 +256,9 @@ module.exports = class OwnerTag extends Plugin {
                             userType: _this.settings.get('showOwnerTags', true)
                                 ? userTypes.OWNER
                                 : userTypes.NONE,
-                            color:
-                                tagColor && tagColor !== ''
-                                    ? tagColor
-                                    : member.colorString,
+                            color: tagColor ? tagColor : member.colorString,
                             textColor: _this._numberToTextColor(
-                                tagColor && tagColor !== ''
-                                    ? tagColor
-                                    : member.colorString
+                                tagColor ? tagColor : member.colorString
                             )
                         };
                     } else if (parsedPermissions['ADMINISTRATOR']) {
@@ -293,14 +267,9 @@ module.exports = class OwnerTag extends Plugin {
                             userType: _this.settings.get('showAdminTags', true)
                                 ? userTypes.ADMIN
                                 : userTypes.NONE,
-                            color:
-                                tagColor && tagColor !== ''
-                                    ? tagColor
-                                    : member.colorString,
+                            color: tagColor ? tagColor : member.colorString,
                             textColor: _this._numberToTextColor(
-                                tagColor && tagColor !== ''
-                                    ? tagColor
-                                    : member.colorString
+                                tagColor ? tagColor : member.colorString
                             )
                         };
                     } else if (
@@ -313,14 +282,9 @@ module.exports = class OwnerTag extends Plugin {
                             userType: _this.settings.get('showStaffTags', true)
                                 ? userTypes.STAFF
                                 : userTypes.NONE,
-                            color:
-                                tagColor && tagColor !== ''
-                                    ? tagColor
-                                    : member.colorString,
+                            color: tagColor ? tagColor : member.colorString,
                             textColor: _this._numberToTextColor(
-                                tagColor && tagColor !== ''
-                                    ? tagColor
-                                    : member.colorString
+                                tagColor ? tagColor : member.colorString
                             )
                         };
                     } else if (
@@ -333,14 +297,9 @@ module.exports = class OwnerTag extends Plugin {
                             userType: _this.settings.get('showModTags', true)
                                 ? userTypes.MOD
                                 : userTypes.NONE,
-                            color:
-                                tagColor && tagColor !== ''
-                                    ? tagColor
-                                    : member.colorString,
+                            color: tagColor ? tagColor : member.colorString,
                             textColor: _this._numberToTextColor(
-                                tagColor && tagColor !== ''
-                                    ? tagColor
-                                    : member.colorString
+                                tagColor ? tagColor : member.colorString
                             )
                         };
                     }
