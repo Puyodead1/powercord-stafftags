@@ -12,6 +12,7 @@ const {
 const { getChannel } = getModule(['getChannel'], false);
 const { getChannelId } = getModule(['getLastSelectedChannelId'], false);
 const { getGuild } = getModule(['getGuild'], false);
+const { getUser } = getModule(['getUser'], false);
 const {
     default: { getMember }
 } = getModule(m => m.default && m.default.getMember, false);
@@ -32,9 +33,10 @@ const parseBitFieldPermissions = allowed => {
 
 const userTypes = {
     NONE: 0,
-    MANAGEMENT: 1,
-    ADMIN: 2,
-    OWNER: 3
+    STAFF: 1,
+    MOD: 2,
+    ADMIN: 3,
+    OWNER: 4
 };
 
 function getPermissionsRaw(guild, user_id) {
@@ -88,9 +90,9 @@ module.exports = class OwnerTag extends Plugin {
     async injectMessages() {
         const _this = this;
         const MessageTimestamp = await getModule(['MessageTimestamp']);
-        const botTagRegularClasses = await getModule([ 'botTagRegular' ]);
-        const botTagCozyClasses = await getModule([ 'botTagCozy' ]);
-        const remClasses = await getModule([ 'rem' ]);
+        const botTagRegularClasses = await getModule(['botTagRegular']);
+        const botTagCozyClasses = await getModule(['botTagCozy']);
+        const remClasses = await getModule(['rem']);
 
         /**
          * The following injects a function into the specified module.
@@ -108,6 +110,11 @@ module.exports = class OwnerTag extends Plugin {
                     return res;
                 }
                 const id = args[0].message.author.id;
+                // const user = await getUser(id)
+                // if (!user) return;
+                // if (!_this.settings.get('showBots', true) && user.bot) {
+                //     return;
+                // }
                 const header = res.props.children[1];
                 let data;
 
@@ -123,26 +130,68 @@ module.exports = class OwnerTag extends Plugin {
 
                     if (guild.ownerId === id) {
                         // is guild owner
+                        const tagColor = _this.settings.get('ownerTagColor');
                         data = {
                             userType: userTypes.OWNER,
-                            color: member.colorString,
-                            textColor: _this._numberToTextColor(member.colorString)
+                            color:
+                                tagColor && tagColor !== ''
+                                    ? tagColor
+                                    : member.colorString,
+                            textColor: _this._numberToTextColor(
+                                tagColor && tagColor !== ''
+                                    ? tagColor
+                                    : member.colorString
+                            )
                         };
                     } else if (parsedPermissions['ADMINISTRATOR']) {
+                        const tagColor = _this.settings.get('adminTagColor');
                         data = {
                             userType: userTypes.ADMIN,
-                            color: member.colorString,
-                            textColor: _this._numberToTextColor(member.colorString)
+                            color:
+                                tagColor && tagColor !== ''
+                                    ? tagColor
+                                    : member.colorString,
+                            textColor: _this._numberToTextColor(
+                                tagColor && tagColor !== ''
+                                    ? tagColor
+                                    : member.colorString
+                            )
                         };
                     } else if (
                         parsedPermissions['KICK_MEMBERS'] ||
                         parsedPermissions['BAN_MEMBERS'] ||
                         parsedPermissions['MANAGE_MESSAGES']
                     ) {
+                        const tagColor = _this.settings.get('modTagColor');
                         data = {
-                            userType: userTypes.MANAGEMENT,
-                            color: member.colorString,
-                            textColor: _this._numberToTextColor(member.colorString)
+                            userType: userTypes.MOD,
+                            color:
+                                tagColor && tagColor !== ''
+                                    ? tagColor
+                                    : member.colorString,
+                            textColor: _this._numberToTextColor(
+                                tagColor && tagColor !== ''
+                                    ? tagColor
+                                    : member.colorString
+                            )
+                        };
+                    } else if (
+                        parsedPermissions['MANAGE_SERVER'] ||
+                        parsedPermissions['MANAGE_CHANNELS'] ||
+                        parsedPermissions['MANAGE_ROLES']
+                    ) {
+                        const tagColor = _this.settings.get('staffTagColor');
+                        data = {
+                            userType: userTypes.STAFF,
+                            color:
+                                tagColor && tagColor !== ''
+                                    ? tagColor
+                                    : member.colorString,
+                            textColor: _this._numberToTextColor(
+                                tagColor && tagColor !== ''
+                                    ? tagColor
+                                    : member.colorString
+                            )
                         };
                     }
                 } else if (channel.type === 3 && channel.ownerId === id) {
@@ -152,6 +201,7 @@ module.exports = class OwnerTag extends Plugin {
 
                 //const element = React.createElement(Tag, { userid: id });
                 if (data) {
+                    // const textColor = _this.settings.get('textColor');
                     const element = React.createElement(
                         'span',
                         {
@@ -170,6 +220,7 @@ module.exports = class OwnerTag extends Plugin {
                     header.props.children[size] =
                         header.props.children[size - 1];
                     header.props.children[size - 1] = element;
+                    // header.props.children.push(element);
                 }
 
                 return res;
@@ -180,8 +231,8 @@ module.exports = class OwnerTag extends Plugin {
     async injectMembers() {
         const _this = this;
         const MemberListItem = await getModuleByDisplayName('MemberListItem');
-        const botTagRegularClasses = await getModule([ 'botTagRegular' ]);
-        const remClasses = await getModule([ 'rem' ]);
+        const botTagRegularClasses = await getModule(['botTagRegular']);
+        const remClasses = await getModule(['rem']);
 
         inject(
             'ownertag-members',
@@ -193,6 +244,11 @@ module.exports = class OwnerTag extends Plugin {
                 }
 
                 const id = this.props.user.id;
+                // const user = getUser(id);
+                // if (!user) return;
+                // if (!_this.settings.get('showBots', true) && user.bot) {
+                //     return;
+                // }
                 let data;
 
                 const guild = getGuild(this.props.channel.guild_id);
@@ -205,26 +261,68 @@ module.exports = class OwnerTag extends Plugin {
 
                     if (guild.ownerId === id) {
                         // is guild owner
+                        const tagColor = _this.settings.get('ownerTagColor');
                         data = {
                             userType: userTypes.OWNER,
-                            color: member.colorString,
-                            textColor: _this._numberToTextColor(member.colorString)
+                            color:
+                                tagColor && tagColor !== ''
+                                    ? tagColor
+                                    : member.colorString,
+                            textColor: _this._numberToTextColor(
+                                tagColor && tagColor !== ''
+                                    ? tagColor
+                                    : member.colorString
+                            )
                         };
                     } else if (parsedPermissions['ADMINISTRATOR']) {
+                        const tagColor = _this.settings.get('adminTagColor');
                         data = {
                             userType: userTypes.ADMIN,
-                            color: member.colorString,
-                            textColor: _this._numberToTextColor(member.colorString)
+                            color:
+                                tagColor && tagColor !== ''
+                                    ? tagColor
+                                    : member.colorString,
+                            textColor: _this._numberToTextColor(
+                                tagColor && tagColor !== ''
+                                    ? tagColor
+                                    : member.colorString
+                            )
                         };
                     } else if (
                         parsedPermissions['KICK_MEMBERS'] ||
                         parsedPermissions['BAN_MEMBERS'] ||
                         parsedPermissions['MANAGE_MESSAGES']
                     ) {
+                        const tagColor = _this.settings.get('modTagColor');
                         data = {
-                            userType: userTypes.MANAGEMENT,
-                            color: member.colorString,
-                            textColor: _this._numberToTextColor(member.colorString)
+                            userType: userTypes.MOD,
+                            color:
+                                tagColor && tagColor !== ''
+                                    ? tagColor
+                                    : member.colorString,
+                            textColor: _this._numberToTextColor(
+                                tagColor && tagColor !== ''
+                                    ? tagColor
+                                    : member.colorString
+                            )
+                        };
+                    } else if (
+                        parsedPermissions['MANAGE_SERVER'] ||
+                        parsedPermissions['MANAGE_CHANNELS'] ||
+                        parsedPermissions['MANAGE_ROLES']
+                    ) {
+                        const tagColor = _this.settings.get('staffTagColor');
+                        data = {
+                            userType: userTypes.STAFF,
+                            color:
+                                tagColor && tagColor !== ''
+                                    ? tagColor
+                                    : member.colorString,
+                            textColor: _this._numberToTextColor(
+                                tagColor && tagColor !== ''
+                                    ? tagColor
+                                    : member.colorString
+                            )
                         };
                     }
                 } else if (
@@ -240,7 +338,10 @@ module.exports = class OwnerTag extends Plugin {
                         'span',
                         {
                             className: `${remClasses.botTag} ${botTagRegularClasses.botTagRegular} ${remClasses.px} ownertag-list`,
-                            style: { backgroundColor: data.color, color: data.textColor }
+                            style: {
+                                backgroundColor: data.color,
+                                color: data.textColor
+                            }
                         },
                         React.createElement(Tag, {
                             className: botTagRegularClasses.botText,
@@ -265,12 +366,12 @@ module.exports = class OwnerTag extends Plugin {
     /*
      * Original code from https://github.com/powercord-community/rolecolor-everywhere.
      */
-    _numberToTextColor (color) {
-        const colorInt = parseInt(color.slice(1), 16)
-        const r = (colorInt & 0xFF0000) >>> 16;
-        const g = (colorInt & 0xFF00) >>> 8;
-        const b = colorInt & 0xFF;
-        const bgDelta = (r * 0.299) + (g * 0.587) + (b * 0.114);
-        return ((255 - bgDelta) < 105) ? '#000000' : '#ffffff';
+    _numberToTextColor(color) {
+        const colorInt = parseInt(color.slice(1), 16);
+        const r = (colorInt & 0xff0000) >>> 16;
+        const g = (colorInt & 0xff00) >>> 8;
+        const b = colorInt & 0xff;
+        const bgDelta = r * 0.299 + g * 0.587 + b * 0.114;
+        return 255 - bgDelta < 105 ? '#000000' : '#ffffff';
     }
 };

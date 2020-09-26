@@ -2,9 +2,10 @@ const { React } = require('powercord/webpack');
 
 const userTypes = {
     NONE: 0,
-    MANAGEMENT: 1,
-    ADMIN: 2,
-    OWNER: 3
+    STAFF: 1,
+    MOD: 2,
+    ADMIN: 3,
+    OWNER: 4
 };
 
 class Tag extends React.PureComponent {
@@ -19,8 +20,10 @@ class Tag extends React.PureComponent {
             return <div className={`${this.props.className}`}>Owner</div>;
         } else if (this.props.userType === userTypes.ADMIN) {
             return <div className={`${this.props.className}`}>Admin</div>;
-        } else if (this.props.userType === userTypes.MANAGEMENT) {
-            return <div className={`${this.props.className}`}>Staff</div>;
+        } else if (this.props.userType === userTypes.MOD) {
+            return <div className={`${this.props.className}`}>Mod</div>;
+        } else if (this.props.userType === userTypes.STAFF) {
+            return <div className={`${this.props.className}`}>asdasd</div>;
         }
         return null;
     }
