@@ -1,6 +1,7 @@
 /* Essential Packages */
 const { Plugin } = require('powercord/entities');
 const { inject, uninject } = require('powercord/injector');
+const { findInReactTree } = require('powercord/util');
 const {
     React,
     getModule,
@@ -115,7 +116,8 @@ module.exports = class OwnerTag extends Plugin {
                 // if (!_this.settings.get('showBots', true) && user.bot) {
                 //     return;
                 // }
-                const header = res.props.children[1];
+
+                const header = findInReactTree(res, e => Array.isArray(e) && e.length >= 4 && e.find(c => c?.props?.renderPopout));
                 let data;
 
                 const channel = getChannel(getChannelId());
@@ -219,7 +221,7 @@ module.exports = class OwnerTag extends Plugin {
                                 useCustomColor && tagColor
                                     ? tagColor
                                     : member.colorString,
-                            textColor: __this._numberToTextColor(
+                            textColor: _this._numberToTextColor(
                                 useCustomColor && tagColor
                                     ? tagColor
                                     : member.colorString
@@ -248,11 +250,8 @@ module.exports = class OwnerTag extends Plugin {
                             userType: data.userType
                         })
                     );
-                    const size = header.props.children.length;
-                    header.props.children[size] =
-                        header.props.children[size - 1];
-                    header.props.children[size - 1] = element;
-                    // header.props.children.push(element);
+
+                    header.push(element);
                 }
 
                 return res;
