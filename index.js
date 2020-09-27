@@ -382,7 +382,7 @@ module.exports = class OwnerTag extends Plugin {
                                 useCustomColor && tagColor
                                     ? tagColor
                                     : member.colorString,
-                            textColor: __this._numberToTextColor(
+                            textColor: _this._numberToTextColor(
                                 useCustomColor && tagColor
                                     ? tagColor
                                     : member.colorString
