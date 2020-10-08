@@ -117,7 +117,7 @@ module.exports = class OwnerTag extends Plugin {
                 //     return;
                 // }
 
-                const header = findInReactTree(res, e => Array.isArray(e) && e.length >= 4 && e.find(c => c?.props?.renderPopout));
+                const header = findInReactTree(res, e => Array.isArray(e.props?.children) && e.props.children.find(c => c.props?.message));
                 let data;
 
                 const channel = getChannel(getChannelId());
@@ -251,7 +251,7 @@ module.exports = class OwnerTag extends Plugin {
                         })
                     );
 
-                    header.push(element);
+                    header.props.children.push(element);
                 }
 
                 return res;
