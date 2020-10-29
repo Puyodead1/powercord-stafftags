@@ -130,7 +130,7 @@ module.exports = class OwnerTag extends Plugin {
                 const guild = getGuild(channel.guild_id);
                 if (guild) {
                     const member = getMember(guild.id, id);
-                    if (!member) return null;
+                    if (!member) return res;
                     const permissions = getPermissionsRaw(guild, id);
                     const parsedPermissions = parseBitFieldPermissions(
                         permissions
