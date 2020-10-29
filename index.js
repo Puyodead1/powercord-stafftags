@@ -117,7 +117,12 @@ module.exports = class OwnerTag extends Plugin {
                 //     return;
                 // }
 
-                const header = findInReactTree(res, e => Array.isArray(e.props?.children) && e.props.children.find(c => c.props?.message));
+                const header = findInReactTree(
+                    res,
+                    e =>
+                        Array.isArray(e.props?.children) &&
+                        e.props.children.find(c => c.props?.message)
+                );
                 let data;
 
                 const channel = getChannel(getChannelId());
@@ -125,6 +130,7 @@ module.exports = class OwnerTag extends Plugin {
                 const guild = getGuild(channel.guild_id);
                 if (guild) {
                     const member = getMember(guild.id, id);
+                    if (!member) return null;
                     const permissions = getPermissionsRaw(guild, id);
                     const parsedPermissions = parseBitFieldPermissions(
                         permissions
