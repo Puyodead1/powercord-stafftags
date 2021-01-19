@@ -13,7 +13,7 @@ const {
 const { getChannel } = getModule(['getChannel'], false);
 const { getChannelId } = getModule(['getLastSelectedChannelId'], false);
 const { getGuild } = getModule(['getGuild'], false);
-const { getUser } = getModule(['getUser'], false);
+// const { getUser } = getModule(['getUser'], false);
 const {
     default: { getMember }
 } = getModule(m => m.default && m.default.getMember, false);
@@ -261,7 +261,7 @@ module.exports = class OwnerTag extends Plugin {
                 //const element = React.createElement(Tag, { userid: id });
                 if (data && data.userType !== userTypes.NONE) {
                     // const textColor = _this.settings.get('textColor');
-                    if (_this.settings.get('showCrowns', true)) {
+                    if (_this.settings.get('showCrowns', false)) {
                         const element = React.createElement(Tooltip, {
                             text: `${data.userType}`,
                             className: 'OwnerTag-13h21hk'
@@ -459,7 +459,7 @@ module.exports = class OwnerTag extends Plugin {
                 }
 
                 if (data && data.userType !== userTypes.NONE) {
-                    if (_this.settings.get('showCrowns', true)) {
+                    if (_this.settings.get('showCrowns', false)) {
                         const element = React.createElement(Tooltip, {
                             text: `${data.userType}`,
                             className: 'OwnerTag-13h21hk'
