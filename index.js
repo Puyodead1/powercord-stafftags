@@ -246,15 +246,13 @@ module.exports = class OwnerTag extends Plugin {
                         'ownerTagColor',
                         '#ED9F1B'
                     );
-                    const useCustomColor = _this.settings.get(
-                        'useCustomOwnerColor'
-                    );
+                    const useCustomColor = _this.settings.get('useCustomOwnerColor') && _this.settings.get('GroupOwnerColor');
                     data = { 
                         userType: userTypes.GOWNER,
                         color:
                                 useCustomColor && tagColor
                                     ? tagColor
-                                    : 'white'
+                                    : '#7289da'
                     };
                 }
 
@@ -446,15 +444,13 @@ module.exports = class OwnerTag extends Plugin {
                         'ownerTagColor',
                         '#ED9F1B'
                     );
-                    const useCustomColor = _this.settings.get(
-                        'useCustomOwnerColor'
-                    );
+                    const useCustomColor = _this.settings.get('useCustomOwnerColor') && _this.settings.get('GroupOwnerColor');
                     data = { 
                         userType: userTypes.GOWNER,
                         color:
                                 useCustomColor && tagColor
                                     ? tagColor
-                                    : 'white'
+                                    : '#7289da'
                     };
                 }
 
