@@ -273,7 +273,8 @@ module.exports = class OwnerTag extends Plugin {
                             height: 14,
                             viewBox: '0 0 16 16',
                             style: {
-                                color: data.color
+                                color: data.color,
+                                backgroundColor: 'transparent'
                             }
                         }, React.createElement('path', {
                             fillRule: 'evenodd',
@@ -470,7 +471,8 @@ module.exports = class OwnerTag extends Plugin {
                             height: 14,
                             viewBox: '0 0 16 16',
                             style: {
-                                color: data.color
+                                color: data.color,
+                                backgroundColor: 'transparent'
                             }
                         }, React.createElement('path', {
                             fillRule: 'evenodd',
