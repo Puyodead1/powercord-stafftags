@@ -62,9 +62,9 @@ module.exports = class Settings extends React.PureComponent {
                 </SwitchItem>
 
                 <SwitchItem
-                    value={this.props.getSetting('showCrowns', true)}
+                    value={this.props.getSetting('showCrowns', false)}
                     onChange={() => {
-                        this.props.toggleSetting('showCrowns', true);
+                        this.props.toggleSetting('showCrowns', false);
                     }}
                     note="If enabled, Crowns will be displayed instead of Tags"
                 >
