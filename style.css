@@ -15,10 +15,7 @@
     display: none;
 }
 
-.ownertag.botTagRegular-2HEhHi,
-.ownertag.botTagRegular-2HEhHi:hover,
-.ownertag-list.botTagRegular-2HEhHi,
-.ownertag-list.botTagRegular-2HEhHi:hover {
+.ownertag.botTagRegular-2HEhHi:hover, .ownertag-list.botTagRegular-2HEhHi:hover {
     background-color: transparent !important;
 }
 
