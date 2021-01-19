@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* Essential Packages */
 const { React } = require('powercord/webpack');
 
@@ -59,6 +60,17 @@ module.exports = class Settings extends React.PureComponent {
                 >
                     Show in Chat
                 </SwitchItem>
+
+                <SwitchItem
+                    value={this.props.getSetting('showCrowns', true)}
+                    onChange={() => {
+                        this.props.toggleSetting('showCrowns', true);
+                    }}
+                    note="If enabled, Crowns will be displayed instead of Tags"
+                >
+                    Show crowns instead of Tags
+                </SwitchItem>
+
                 <SwitchItem
                     value={this.props.getSetting('displayMembers', true)}
                     onChange={() => {
@@ -95,6 +107,16 @@ module.exports = class Settings extends React.PureComponent {
                 >
                     Owner Tag Color
                 </ColorPickerInput>}
+
+                {this.props.getSetting('useCustomOwnerColor') && <SwitchItem
+                    value={this.props.getSetting('GroupOwnerColor', true)}
+                    onChange={() => {
+                        this.props.toggleSetting('GroupOwnerColor', true);
+                    }}
+                    note="If enabled, Group Owner tag color will be same as Server Owner tag color"
+                >
+                    Use Custom Group owner Color
+                </SwitchItem>}
 
                 <SwitchItem
                     value={this.props.getSetting('useCustomAdminColor', false)}
@@ -154,12 +176,12 @@ module.exports = class Settings extends React.PureComponent {
         );
     }
 
-    getColorSetting (setting) {
+    getColorSetting(setting) {
         const hex = this.props.getSetting(setting)
         return hex ? parseInt(hex.slice(1), 16) : 0
     }
 
-    _numberToHex (color) {
+    _numberToHex(color) {
         const r = (color & 0xFF0000) >>> 16;
         const g = (color & 0xFF00) >>> 8;
         const b = color & 0xFF;
