@@ -254,7 +254,7 @@ module.exports = class OwnerTag extends Plugin {
                         color:
                                 useCustomColor && tagColor
                                     ? tagColor
-                                    : 'white'
+                                    : null
                     };
                 }
 
@@ -454,7 +454,7 @@ module.exports = class OwnerTag extends Plugin {
                         color:
                                 useCustomColor && tagColor
                                     ? tagColor
-                                    : 'white'
+                                    : null
                     };
                 }
 
