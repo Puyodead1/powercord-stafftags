@@ -8,7 +8,6 @@ const {
     getModuleByDisplayName,
     constants
 } = require('powercord/webpack');
-const { fill } = require('../better-quoter/variables.js');
 
 /* Plugin Specific Packages */
 const { getChannel } = getModule(['getChannel'], false);
