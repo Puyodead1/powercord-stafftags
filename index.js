@@ -127,7 +127,7 @@ module.exports = class OwnerTag extends Plugin {
                     res,
                     e =>
                         Array.isArray(e.props?.children) &&
-                        e.props.children.find(c => c.props?.message)
+                        e.props.children.find(c => c?.props?.message)
                 );
                 let data;
 
