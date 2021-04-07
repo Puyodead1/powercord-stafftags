@@ -38,10 +38,8 @@ const userTypes = {
     MOD: 'Mod',
     ADMIN: 'Admin',
     SOWNER: 'Server Owner',
-    GOWNER: 'Group Owner',
+    GOWNER: 'Group Owner'
 };
-
-
 
 function getPermissionsRaw(guild, user_id) {
     let permissions = 0;
@@ -72,8 +70,7 @@ function getPermissionsRaw(guild, user_id) {
     return permissions;
 }
 
-const Tooltip = getModule(["TooltipContainer"], false).TooltipContainer;
-
+const Tooltip = getModule(['TooltipContainer'], false).TooltipContainer;
 
 /* Settings */
 const Settings = require('./Components/Settings.jsx');
@@ -96,7 +93,17 @@ module.exports = class OwnerTag extends Plugin {
 
     async injectMessages() {
         const _this = this;
-        const MessageTimestamp = await getModule(['MessageTimestamp']);
+        const MessageTimestamp =
+            getModule(['MessageTimestamp'], false) ||
+            getModule(
+                m =>
+                    typeof (m?.__powercordOriginal_default || m.default) ===
+                        'function' &&
+                    (m?.__powercordOriginal_default || m.default)
+                        .toString()
+                        .includes('headerText'),
+                false
+            ); // credit to M|-|4r13y ツ#1051 for this snippet
         const botTagRegularClasses = await getModule(['botTagRegular']);
         const botTagCozyClasses = await getModule(['botTagCozy']);
         const remClasses = await getModule(['rem']);
@@ -132,11 +139,15 @@ module.exports = class OwnerTag extends Plugin {
                 let data;
 
                 const channel = getChannel(getChannelId());
-                if (!channel) { return; }
+                if (!channel) {
+                    return;
+                }
                 const guild = getGuild(channel.guild_id);
                 if (guild) {
                     const member = getMember(guild.id, id);
-                    if (!member) { return res; }
+                    if (!member) {
+                        return res;
+                    }
                     const permissions = getPermissionsRaw(guild, id);
                     const parsedPermissions = parseBitFieldPermissions(
                         permissions
@@ -249,12 +260,9 @@ module.exports = class OwnerTag extends Plugin {
                     const useCustomColor = _this.settings.get(
                         'useCustomOwnerColor'
                     );
-                    data = { 
+                    data = {
                         userType: userTypes.GOWNER,
-                        color:
-                                useCustomColor && tagColor
-                                    ? tagColor
-                                    : null
+                        color: useCustomColor && tagColor ? tagColor : null
                     };
                 }
 
@@ -262,27 +270,36 @@ module.exports = class OwnerTag extends Plugin {
                 if (data && data.userType !== userTypes.NONE) {
                     // const textColor = _this.settings.get('textColor');
                     if (_this.settings.get('showCrowns', false)) {
-                        const element = React.createElement(Tooltip, {
-                            text: `${data.userType}`,
-                            className: 'OwnerTag-13h21hk'
-                        }, React.createElement('svg', {
-                            className: `${botTagCozyClasses.botTagCozy} ${botTagRegularClasses.botTagRegular} ${remClasses.rem} ownertag`,
-                            'aria-label': `${data.userType}`,
-                            'aria-hidden': 'false',
-                            width: 14,
-                            height: 14,
-                            viewBox: '0 0 16 16',
-                            style: {
-                                color: data.color,
-                                backgroundColor: 'transparent'
-                            }
-                        }, React.createElement('path', {
-                            fillRule: 'evenodd',
-                            clipRule: 'evenodd',
-                            d: 'M13.6572 5.42868C13.8879 5.29002 14.1806 5.30402 14.3973 5.46468C14.6133 5.62602 14.7119 5.90068 14.6473 6.16202L13.3139 11.4954C13.2393 11.7927 12.9726 12.0007 12.6666 12.0007H3.33325C3.02725 12.0007 2.76058 11.792 2.68592 11.4954L1.35258 6.16202C1.28792 5.90068 1.38658 5.62602 1.60258 5.46468C1.81992 5.30468 2.11192 5.29068 2.34325 5.42868L5.13192 7.10202L7.44592 3.63068C7.46173 3.60697 7.48377 3.5913 7.50588 3.57559C7.5192 3.56612 7.53255 3.55663 7.54458 3.54535L6.90258 2.90268C6.77325 2.77335 6.77325 2.56068 6.90258 2.43135L7.76458 1.56935C7.89392 1.44002 8.10658 1.44002 8.23592 1.56935L9.09792 2.43135C9.22725 2.56068 9.22725 2.77335 9.09792 2.90268L8.45592 3.54535C8.46794 3.55686 8.48154 3.56651 8.49516 3.57618C8.51703 3.5917 8.53897 3.60727 8.55458 3.63068L10.8686 7.10202L13.6572 5.42868ZM2.66667 12.6673H13.3333V14.0007H2.66667V12.6673Z',
-                            fill: 'currentColor',
-                            'aria-hidden': 'true'
-                        })));
+                        const element = React.createElement(
+                            Tooltip,
+                            {
+                                text: `${data.userType}`,
+                                className: 'OwnerTag-13h21hk'
+                            },
+                            React.createElement(
+                                'svg',
+                                {
+                                    className: `${botTagCozyClasses.botTagCozy} ${botTagRegularClasses.botTagRegular} ${remClasses.rem} ownertag`,
+                                    'aria-label': `${data.userType}`,
+                                    'aria-hidden': 'false',
+                                    width: 14,
+                                    height: 14,
+                                    viewBox: '0 0 16 16',
+                                    style: {
+                                        color: data.color,
+                                        backgroundColor: 'transparent'
+                                    }
+                                },
+                                React.createElement('path', {
+                                    fillRule: 'evenodd',
+                                    clipRule: 'evenodd',
+                                    d:
+                                        'M13.6572 5.42868C13.8879 5.29002 14.1806 5.30402 14.3973 5.46468C14.6133 5.62602 14.7119 5.90068 14.6473 6.16202L13.3139 11.4954C13.2393 11.7927 12.9726 12.0007 12.6666 12.0007H3.33325C3.02725 12.0007 2.76058 11.792 2.68592 11.4954L1.35258 6.16202C1.28792 5.90068 1.38658 5.62602 1.60258 5.46468C1.81992 5.30468 2.11192 5.29068 2.34325 5.42868L5.13192 7.10202L7.44592 3.63068C7.46173 3.60697 7.48377 3.5913 7.50588 3.57559C7.5192 3.56612 7.53255 3.55663 7.54458 3.54535L6.90258 2.90268C6.77325 2.77335 6.77325 2.56068 6.90258 2.43135L7.76458 1.56935C7.89392 1.44002 8.10658 1.44002 8.23592 1.56935L9.09792 2.43135C9.22725 2.56068 9.22725 2.77335 9.09792 2.90268L8.45592 3.54535C8.46794 3.55686 8.48154 3.56651 8.49516 3.57618C8.51703 3.5917 8.53897 3.60727 8.55458 3.63068L10.8686 7.10202L13.6572 5.42868ZM2.66667 12.6673H13.3333V14.0007H2.66667V12.6673Z',
+                                    fill: 'currentColor',
+                                    'aria-hidden': 'true'
+                                })
+                            )
+                        );
                         header.props.children.push(element);
                     } else {
                         const element = React.createElement(
@@ -449,38 +466,44 @@ module.exports = class OwnerTag extends Plugin {
                     const useCustomColor = _this.settings.get(
                         'useCustomOwnerColor'
                     );
-                    data = { 
+                    data = {
                         userType: userTypes.GOWNER,
-                        color:
-                                useCustomColor && tagColor
-                                    ? tagColor
-                                    : null
+                        color: useCustomColor && tagColor ? tagColor : null
                     };
                 }
 
                 if (data && data.userType !== userTypes.NONE) {
                     if (_this.settings.get('showCrowns', false)) {
-                        const element = React.createElement(Tooltip, {
-                            text: `${data.userType}`,
-                            className: 'OwnerTag-13h21hk'
-                        }, React.createElement('svg', {
-                            className: `${remClasses.botTag} ${botTagRegularClasses.botTagRegular} ${remClasses.px} ownertag-list`,
-                            'aria-label': `${data.userType}`,
-                            'aria-hidden': 'false',
-                            width: 14,
-                            height: 14,
-                            viewBox: '0 0 16 16',
-                            style: {
-                                color: data.color,
-                                backgroundColor: 'transparent'
-                            }
-                        }, React.createElement('path', {
-                            fillRule: 'evenodd',
-                            clipRule: 'evenodd',
-                            d: 'M13.6572 5.42868C13.8879 5.29002 14.1806 5.30402 14.3973 5.46468C14.6133 5.62602 14.7119 5.90068 14.6473 6.16202L13.3139 11.4954C13.2393 11.7927 12.9726 12.0007 12.6666 12.0007H3.33325C3.02725 12.0007 2.76058 11.792 2.68592 11.4954L1.35258 6.16202C1.28792 5.90068 1.38658 5.62602 1.60258 5.46468C1.81992 5.30468 2.11192 5.29068 2.34325 5.42868L5.13192 7.10202L7.44592 3.63068C7.46173 3.60697 7.48377 3.5913 7.50588 3.57559C7.5192 3.56612 7.53255 3.55663 7.54458 3.54535L6.90258 2.90268C6.77325 2.77335 6.77325 2.56068 6.90258 2.43135L7.76458 1.56935C7.89392 1.44002 8.10658 1.44002 8.23592 1.56935L9.09792 2.43135C9.22725 2.56068 9.22725 2.77335 9.09792 2.90268L8.45592 3.54535C8.46794 3.55686 8.48154 3.56651 8.49516 3.57618C8.51703 3.5917 8.53897 3.60727 8.55458 3.63068L10.8686 7.10202L13.6572 5.42868ZM2.66667 12.6673H13.3333V14.0007H2.66667V12.6673Z',
-                            fill: 'currentColor',
-                            'aria-hidden': 'true'
-                        })));
+                        const element = React.createElement(
+                            Tooltip,
+                            {
+                                text: `${data.userType}`,
+                                className: 'OwnerTag-13h21hk'
+                            },
+                            React.createElement(
+                                'svg',
+                                {
+                                    className: `${remClasses.botTag} ${botTagRegularClasses.botTagRegular} ${remClasses.px} ownertag-list`,
+                                    'aria-label': `${data.userType}`,
+                                    'aria-hidden': 'false',
+                                    width: 14,
+                                    height: 14,
+                                    viewBox: '0 0 16 16',
+                                    style: {
+                                        color: data.color,
+                                        backgroundColor: 'transparent'
+                                    }
+                                },
+                                React.createElement('path', {
+                                    fillRule: 'evenodd',
+                                    clipRule: 'evenodd',
+                                    d:
+                                        'M13.6572 5.42868C13.8879 5.29002 14.1806 5.30402 14.3973 5.46468C14.6133 5.62602 14.7119 5.90068 14.6473 6.16202L13.3139 11.4954C13.2393 11.7927 12.9726 12.0007 12.6666 12.0007H3.33325C3.02725 12.0007 2.76058 11.792 2.68592 11.4954L1.35258 6.16202C1.28792 5.90068 1.38658 5.62602 1.60258 5.46468C1.81992 5.30468 2.11192 5.29068 2.34325 5.42868L5.13192 7.10202L7.44592 3.63068C7.46173 3.60697 7.48377 3.5913 7.50588 3.57559C7.5192 3.56612 7.53255 3.55663 7.54458 3.54535L6.90258 2.90268C6.77325 2.77335 6.77325 2.56068 6.90258 2.43135L7.76458 1.56935C7.89392 1.44002 8.10658 1.44002 8.23592 1.56935L9.09792 2.43135C9.22725 2.56068 9.22725 2.77335 9.09792 2.90268L8.45592 3.54535C8.46794 3.55686 8.48154 3.56651 8.49516 3.57618C8.51703 3.5917 8.53897 3.60727 8.55458 3.63068L10.8686 7.10202L13.6572 5.42868ZM2.66667 12.6673H13.3333V14.0007H2.66667V12.6673Z',
+                                    fill: 'currentColor',
+                                    'aria-hidden': 'true'
+                                })
+                            )
+                        );
                         const size = res.props.children.length;
                         res.props.children[size] = res.props.children[size - 1];
                         res.props.children[size - 1] = element;
@@ -522,7 +545,9 @@ module.exports = class OwnerTag extends Plugin {
      * Original code from https://github.com/powercord-community/rolecolor-everywhere.
      */
     _numberToTextColor(color) {
-        if (!color) { return; } // prevents errors from null colors which come from roles with no colors
+        if (!color) {
+            return;
+        } // prevents errors from null colors which come from roles with no colors
         const colorInt = parseInt(color.slice(1), 16);
         const r = (colorInt & 0xff0000) >>> 16;
         const g = (colorInt & 0xff00) >>> 8;
