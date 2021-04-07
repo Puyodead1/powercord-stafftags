@@ -1,6 +1,6 @@
 {
     "name": "Ownertag",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "Adds a tag or crown to the server owner (or admins/management).",
     "author": "Puyodead1",
     "license": "MIT"
