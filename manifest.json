@@ -1,7 +1,7 @@
 {
-    "name": "Ownertag",
-    "version": "1.0.6",
-    "description": "Adds a tag or crown to the server owner (or admins/management).",
+    "name": "Staff Tags",
+    "version": "1.0.7",
+    "description": "Adds a tag or crown to Owners, Mods, Admins and Staff.",
     "author": "Puyodead1",
     "license": "MIT"
 }

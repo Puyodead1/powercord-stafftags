@@ -313,7 +313,8 @@ module.exports = class OwnerTag extends Plugin {
                             },
                             React.createElement(Tag, {
                                 className: botTagRegularClasses.botText,
-                                userType: data.userType
+                                userType: data.userType,
+                                settings: _this.settings
                             })
                         );
                         header.props.children.push(element);
@@ -519,7 +520,8 @@ module.exports = class OwnerTag extends Plugin {
                             },
                             React.createElement(Tag, {
                                 className: botTagRegularClasses.botText,
-                                userType: data.userType
+                                userType: data.userType,
+                                settings: _this.settings
                             })
                         );
                         const size = res.props.children.length;
