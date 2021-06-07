@@ -4,8 +4,8 @@ Displays owner, admin, and staff tags similar to bot tags, they can appear in th
 
 | Preview                                     | Settings                            |
 | ------------------------------------------- | ----------------------------------- |
-| ![](https://cdn.moguldevs.xyz/u/14I05G.png) | ![](https://cdn.moguldevs.xyz/u/4NdZXI.png) |
-| ![](https://cdn.moguldevs.xyz/u/Ng3UhJ.png) |                                     | 
+| ![](https://i.imgur.com/4x8dnFA.png) | ![](https://i.imgur.com/seVBXw1.png) |
+| ![](https://i.imgur.com/6NwdauH.png) |                                     | 
 -------------------------------------------------------------------------------------
 
 dis is my first plugin, be kind plz <3
