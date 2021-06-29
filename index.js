@@ -41,6 +41,13 @@ const userTypes = {
     GOWNER: 'Group Owner'
 };
 
+const DEFAULT_TAG_TEXTS = {
+    staff: 'Staff',
+    mod: 'Mod',
+    admin: 'Admin',
+    owner: 'Owner'
+};
+
 function getPermissionsRaw(guild, user_id) {
     let permissions = 0;
 
