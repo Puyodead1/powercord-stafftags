@@ -91,7 +91,29 @@ module.exports = class OwnerTag extends Plugin {
         this.injectMembers();
     }
 
+    getTagText(tagType) {
+        switch (tagType) {
+            case userTypes.ADMIN:
+                tagType = 'admin';
+                break;
+            case userTypes.GOWNER:
+            case userTypes.SOWNER:
+                tagType = 'owner';
+                break;
+            case userTypes.MOD:
+                tagType = 'mod';
+                break;
+            case userTypes.STAFF:
+                tagType = 'staff';
+                break;
+        }
+        const customTextEnabled = this.settings.get('customTagText', false);
+        const tagText = this.settings.get(`${tagType}TagText`);
+        return customTextEnabled ? tagText : DEFAULT_TAG_TEXTS[tagType];
+    }
+
     async injectMessages() {
+        console.log('Injecting messages');
         const _this = this;
         const MessageTimestamp =
             getModule(['MessageTimestamp'], false) ||
@@ -324,6 +346,7 @@ module.exports = class OwnerTag extends Plugin {
     }
 
     async injectMembers() {
+        console.log('Injecting members');
         const _this = this;
         const MemberListItem = await getModuleByDisplayName('MemberListItem');
         const botTagRegularClasses = await getModule(['botTagRegular']);
@@ -473,7 +496,7 @@ module.exports = class OwnerTag extends Plugin {
                         const element = React.createElement(
                             Tooltip,
                             {
-                                text: `${data.userType}`,
+                                text: _this.getTagText(data.userType),
                                 className: 'OwnerTag-13h21hk'
                             },
                             React.createElement(

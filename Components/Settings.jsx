@@ -7,7 +7,17 @@ const { React } = require('powercord/webpack');
 const {
     SwitchItem,
     TextInput,
-    ColorPickerInput
+    ColorPickerInput,
+    Button,
+    FormNotice,
+    Card,
+    Clickable,
+    Switch,
+    Spinner,
+    FormTitle,
+    HeaderBar,
+    TabBar,
+    Flex
 } = require('powercord/components/settings');
 
 module.exports = class Settings extends React.PureComponent {
@@ -84,7 +94,7 @@ module.exports = class Settings extends React.PureComponent {
                 >
                     Show in Member List
                 </SwitchItem>
-                <SwitchItem
+                {/* <SwitchItem
                     value={this.props.getSetting('showForBots', true)}
                     onChange={() => {
                         this.props.toggleSetting('showForBots', true);
@@ -92,7 +102,7 @@ module.exports = class Settings extends React.PureComponent {
                     note="If disabled, badges won't be shown anywhere for bots. (WIP)"
                 >
                     Show for Bots
-                </SwitchItem>
+                </SwitchItem> */}
 
                 <SwitchItem
                     value={this.props.getSetting('customTagColors', false)}
