@@ -24,7 +24,7 @@ const parseBitFieldPermissions = allowed => {
     const permissions = {};
     for (const perm of Object.keys(Permissions)) {
         if (!perm.startsWith('all')) {
-            if (allowed & Permissions[perm]) {
+            if (allowed & BigInt(Permissions[perm])) {
                 permissions[perm] = true;
             }
         }
@@ -58,16 +58,16 @@ function getPermissionsRaw(guild, user_id) {
             permissions = Permissions.ADMINISTRATOR;
         } else {
             /* @everyone is not inlcuded in the member's roles */
-            permissions |= guild.roles[guild.id]?.permissions;
+            permissions |= BigInt(guild.roles[guild.id]?.permissions);
 
             for (const roleId of member.roles) {
-                permissions |= guild.roles[roleId]?.permissions;
+                permissions |= BigInt(guild.roles[roleId]?.permissions);
             }
         }
 
         /* If they have administrator they have every permission */
         if (
-            (permissions & Permissions.ADMINISTRATOR) ===
+            (BigInt(permissions) & BigInt(Permissions.ADMINISTRATOR)) ===
             Permissions.ADMINISTRATOR
         ) {
             return Object.values(Permissions).reduce((a, b) => a | b, 0n);
