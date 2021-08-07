@@ -24,7 +24,7 @@ const parseBitFieldPermissions = allowed => {
     const permissions = {};
     for (const perm of Object.keys(Permissions)) {
         if (!perm.startsWith('all')) {
-            if (allowed & BigInt(Permissions[perm])) {
+            if (BigInt(allowed) & BigInt(Permissions[perm])) {
                 permissions[perm] = true;
             }
         }
