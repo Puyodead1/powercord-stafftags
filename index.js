@@ -49,7 +49,7 @@ const DEFAULT_TAG_TEXTS = {
 };
 
 function getPermissionsRaw(guild, user_id) {
-    let permissions = 0;
+    let permissions = 0n;
 
     const member = getMember(guild.id, user_id);
 
@@ -70,7 +70,7 @@ function getPermissionsRaw(guild, user_id) {
             (permissions & Permissions.ADMINISTRATOR) ===
             Permissions.ADMINISTRATOR
         ) {
-            return Object.values(Permissions).reduce((a, b) => a | b, 0);
+            return Object.values(Permissions).reduce((a, b) => a | b, 0n);
         }
     }
 
