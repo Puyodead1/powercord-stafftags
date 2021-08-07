@@ -61,9 +61,9 @@ function getPermissionsRaw(guild, user_id) {
             permissions |= BigInt(guild.roles[guild.id]?.permissions);
 
             for (const roleId of member.roles) {
-                const role = guild.roles[roleId];
-                if (role !== undefined) {
-                    permissions |= BigInt(role.permissions);
+                const rolePerms = guild.roles[roleId]?.permissions;
+                if (rolePerms !== undefined) {
+                    permissions |= BigInt(rolePerms);
                 }
             }
         }
