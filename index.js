@@ -55,22 +55,25 @@ function getPermissionsRaw(guild, user_id) {
 
     if (guild && member) {
         if (guild.ownerId === user_id) {
-            permissions = Permissions.ADMINISTRATOR;
+            permissions = BigInt(Permissions.ADMINISTRATOR);
         } else {
             /* @everyone is not inlcuded in the member's roles */
             permissions |= BigInt(guild.roles[guild.id]?.permissions);
 
             for (const roleId of member.roles) {
-                permissions |= BigInt(guild.roles[roleId]?.permissions);
+                const role = guild.roles[roleId];
+                if (role !== undefined) {
+                    permissions |= BigInt(role.permissions);
+                }
             }
         }
 
         /* If they have administrator they have every permission */
         if (
             (BigInt(permissions) & BigInt(Permissions.ADMINISTRATOR)) ===
-            Permissions.ADMINISTRATOR
+            BigInt(Permissions.ADMINISTRATOR)
         ) {
-            return Object.values(Permissions).reduce((a, b) => a | b, 0n);
+            return Object.values(Permissions).reduce((a, b) => BigInt(a) | BigInt(b), 0n);
         }
     }
 
