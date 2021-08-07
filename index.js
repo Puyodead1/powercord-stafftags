@@ -24,7 +24,7 @@ const parseBitFieldPermissions = allowed => {
     const permissions = {};
     for (const perm of Object.keys(Permissions)) {
         if (!perm.startsWith('all')) {
-            if (allowed & Permissions[perm]) {
+            if (BigInt(allowed) & BigInt(Permissions[perm])) {
                 permissions[perm] = true;
             }
         }
@@ -49,28 +49,31 @@ const DEFAULT_TAG_TEXTS = {
 };
 
 function getPermissionsRaw(guild, user_id) {
-    let permissions = 0;
+    let permissions = 0n;
 
     const member = getMember(guild.id, user_id);
 
     if (guild && member) {
         if (guild.ownerId === user_id) {
-            permissions = Permissions.ADMINISTRATOR;
+            permissions = BigInt(Permissions.ADMINISTRATOR);
         } else {
             /* @everyone is not inlcuded in the member's roles */
-            permissions |= guild.roles[guild.id]?.permissions;
+            permissions |= BigInt(guild.roles[guild.id]?.permissions);
 
             for (const roleId of member.roles) {
-                permissions |= guild.roles[roleId]?.permissions;
+                const rolePerms = guild.roles[roleId]?.permissions;
+                if (rolePerms !== undefined) {
+                    permissions |= BigInt(rolePerms);
+                }
             }
         }
 
         /* If they have administrator they have every permission */
         if (
-            (permissions & Permissions.ADMINISTRATOR) ===
-            Permissions.ADMINISTRATOR
+            (BigInt(permissions) & BigInt(Permissions.ADMINISTRATOR)) ===
+            BigInt(Permissions.ADMINISTRATOR)
         ) {
-            return Object.values(Permissions).reduce((a, b) => a | b, 0);
+            return Object.values(Permissions).reduce((a, b) => BigInt(a) | BigInt(b), 0n);
         }
     }
 
