@@ -1,6 +1,15 @@
 /* eslint-disable indent */
 /* Essential Packages */
-const { React } = require('powercord/webpack');
+const { React, constants } = require('powercord/webpack');
+const Permissions = constants.Permissions;
+
+const DEFAULT_PERMISSIONS = {
+    STAFF: [
+        Permissions.MANAGE_GUILD,
+        Permissions.MANAGE_CHANNELS,
+        Permissions.MANAGE_ROLES
+    ]
+};
 
 /* Plugin Specific Packages */
 // There are many more componenets available in "powercord/components/settings".
@@ -8,19 +17,17 @@ const {
     SwitchItem,
     TextInput,
     ColorPickerInput,
-    Button,
-    FormNotice,
-    Card,
-    Clickable,
-    Switch,
-    Spinner,
-    FormTitle,
-    HeaderBar,
-    TabBar,
-    Flex
+    CheckboxInput,
+    Category
 } = require('powercord/components/settings');
 
-module.exports = class Settings extends React.PureComponent {
+module.exports = class Settings extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {};
+    }
+
     /**
      * Renderer, this is what's being executed on line 22 of index.js
      * The example here displays a toggle between displaying a cat or a dog.
@@ -65,6 +72,21 @@ module.exports = class Settings extends React.PureComponent {
                 >
                     Show Staff Tags
                 </SwitchItem>
+                {/* {this.props.getSetting("showStaffTags") && (
+          <Category
+            name="Staff Tag Permissions"
+            description={
+              "The permissions that should be required to classify as staff."
+            }
+            opened={this.state.categoryOpened}
+            onChange={() =>
+              this.setState({ categoryOpened: !this.state.categoryOpened })
+            }
+          >
+            // TODO
+            <div></div>
+          </Category>
+        )} */}
                 <SwitchItem
                     value={this.props.getSetting('displayMessages', true)}
                     onChange={() => {

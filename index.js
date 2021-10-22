@@ -6,14 +6,12 @@ const {
     React,
     getModule,
     getModuleByDisplayName,
-    constants
+    constants,
+    channels
 } = require('powercord/webpack');
 
 /* Plugin Specific Packages */
-const { getChannel } = getModule(['getChannel'], false);
-const { getChannelId } = getModule(['getLastSelectedChannelId'], false);
 const { getGuild } = getModule(['getGuild'], false);
-// const { getUser } = getModule(['getUser'], false);
 const {
     default: { getMember }
 } = getModule(m => m.default && m.default.getMember, false);
@@ -73,7 +71,10 @@ function getPermissionsRaw(guild, user_id) {
             (BigInt(permissions) & BigInt(Permissions.ADMINISTRATOR)) ===
             BigInt(Permissions.ADMINISTRATOR)
         ) {
-            return Object.values(Permissions).reduce((a, b) => BigInt(a) | BigInt(b), 0n);
+            return Object.values(Permissions).reduce(
+                (a, b) => BigInt(a) | BigInt(b),
+                0n
+            );
         }
     }
 
@@ -124,6 +125,7 @@ module.exports = class OwnerTag extends Plugin {
 
     async injectMessages() {
         console.log('Injecting messages');
+        const channelStore = await getModule(['getChannel', 'getDMFromUserId']);
         const _this = this;
         const MessageTimestamp =
             getModule(['MessageTimestamp'], false) ||
@@ -170,7 +172,9 @@ module.exports = class OwnerTag extends Plugin {
                 );
                 let data;
 
-                const channel = getChannel(getChannelId());
+                const channel = channelStore.getChannel(
+                    channels.getChannelId()
+                );
                 if (!channel) {
                     return;
                 }
