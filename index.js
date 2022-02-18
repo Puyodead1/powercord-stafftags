@@ -165,7 +165,7 @@ module.exports = class OwnerTag extends Plugin {
                 // }
 
                 const header = findInReactTree(
-                    res,
+                    res.props.username,
                     e =>
                         Array.isArray(e.props?.children) &&
                         e.props.children.find(c => c?.props?.message)
