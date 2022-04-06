@@ -170,20 +170,17 @@ module.exports = class OwnerTag extends Plugin {
                         Array.isArray(e.props?.children) &&
                         e.props.children.find(c => c?.props?.message)
                 );
+				if(!header) return;
                 let data;
 
                 const channel = channelStore.getChannel(
                     channels.getChannelId()
                 );
-                if (!channel) {
-                    return;
-                }
+                if (!channel) return;
                 const guild = getGuild(channel.guild_id);
                 if (guild) {
                     const member = getMember(guild.id, id);
-                    if (!member) {
-                        return res;
-                    }
+                    if (!member) return res;
                     const permissions = getPermissionsRaw(guild, id);
                     const parsedPermissions =
                         parseBitFieldPermissions(permissions);
