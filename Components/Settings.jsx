@@ -3,22 +3,12 @@
 const { React, constants } = require('powercord/webpack');
 const Permissions = constants.Permissions;
 
-const DEFAULT_PERMISSIONS = {
-    STAFF: [
-        Permissions.MANAGE_GUILD,
-        Permissions.MANAGE_CHANNELS,
-        Permissions.MANAGE_ROLES
-    ]
-};
-
 /* Plugin Specific Packages */
 // There are many more componenets available in "powercord/components/settings".
 const {
     SwitchItem,
     TextInput,
-    ColorPickerInput,
-    CheckboxInput,
-    Category
+    ColorPickerInput
 } = require('powercord/components/settings');
 
 module.exports = class Settings extends React.Component {
@@ -116,15 +106,15 @@ module.exports = class Settings extends React.Component {
                 >
                     Show in Member List
                 </SwitchItem>
-                {/* <SwitchItem
+                <SwitchItem
                     value={this.props.getSetting('showForBots', true)}
                     onChange={() => {
                         this.props.toggleSetting('showForBots', true);
                     }}
-                    note="If disabled, badges won't be shown anywhere for bots. (WIP)"
+                    note="If disabled, badges won't be shown anywhere for bots."
                 >
                     Show for Bots
-                </SwitchItem> */}
+                </SwitchItem>
 
                 <SwitchItem
                     value={this.props.getSetting('customTagColors', false)}

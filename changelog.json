@@ -1,0 +1,22 @@
+{
+    "date": "2022-04-27",
+    "image": "https://c.tenor.com/OfafYffcW7MAAAAC/lets-party-snoop.gif",
+    "body": [
+        {
+            "type": "added",
+            "header": "New Features",
+            "content": [
+                "- **Show Tags on bots.** You can now toggle whether to show tags on bots or not. This currently only works for the Member List.",
+                "- **Added Change Log.** As you can probably see, I added a Change Log. Very cool."
+            ]
+        },
+        {
+            "type": "fixed",
+            "header": "Also...",
+            "content": [
+                "- **Fixed Member List injection.** You can once again see those beautiful tags in the Member List!"
+            ]
+        }
+    ],
+    "footer": ""
+}
