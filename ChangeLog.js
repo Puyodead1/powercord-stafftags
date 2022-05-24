@@ -138,13 +138,14 @@ class Changelog extends ChangelogStandardTemplate {
 
     customRenderHeader() {
         const res = this.superRenderHeader();
+        console.log(res);
         const Header = findInReactTree(
             res,
-            ({ type }) => type?.displayName === 'Header'
+            ({ type }) => type?.displayName === 'LegacyHeader'
         );
         const Text = findInReactTree(
             res,
-            ({ type }) => type?.displayName === 'Text'
+            ({ type }) => type?.displayName === 'LegacyText'
         );
 
         Header.props.children = `Staff Tags - ${Header.props.children}`;
