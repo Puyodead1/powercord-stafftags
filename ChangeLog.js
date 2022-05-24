@@ -140,7 +140,7 @@ class Changelog extends ChangelogStandardTemplate {
         const res = this.superRenderHeader();
         const Header = findInReactTree(
             res,
-            ({ type }) => type?.displayName === 'Header'
+            ({ type }) => type?.displayName === 'Heading'
         );
         const Text = findInReactTree(
             res,
