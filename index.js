@@ -165,13 +165,13 @@ module.exports = class OwnerTag extends Plugin {
                         Array.isArray(e.props?.children) &&
                         e.props.children.find(c => c?.props?.message)
                 );
-                if (!header) return;
+                if (!header) return res;
                 let data;
 
                 const channel = channelStore.getChannel(
                     channels.getChannelId()
                 );
-                if (!channel) return;
+                if (!channel) return res;
                 const guild = getGuild(channel.guild_id);
                 if (guild) {
                     const member = getMember(guild.id, id);
@@ -345,7 +345,6 @@ module.exports = class OwnerTag extends Plugin {
                         header.props.children.push(element);
                     }
                 }
-
                 return res;
             }
         );
@@ -383,14 +382,14 @@ module.exports = class OwnerTag extends Plugin {
                         const id = this.props.user.id;
 
                         const user = userStore.getUser(id);
-                        if (!user) return;
+                        if (!user) return res;
 
                         // check if the user is a bot and rendering bots is enabled
                         if (
                             !_this.settings.get('showForBots', true) &&
                             user.bot
                         ) {
-                            return;
+                            return res;
                         }
 
                         let data;

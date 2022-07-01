@@ -53,7 +53,7 @@ module.exports = class ChangelogManager {
      * @return {boolean}
      */
     get needChangeLog() {
-        const get = s => s.split(/\./g).slice(0, -1);
+        const get = s => s.split(/\./g);
         const currVers = get(this.args.currentVer);
         const lastVers = get(this.args.lastCheckedVer);
 
