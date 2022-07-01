@@ -121,6 +121,7 @@ module.exports = class OwnerTag extends Plugin {
     async injectMessages() {
         console.log('Injecting messages');
         const channelStore = await getModule(['getChannel', 'getDMFromUserId']);
+        const { getGuildId } = await getModule(['getLastSelectedGuildId']);
         const _this = this;
         const MessageTimestamp =
             getModule(['MessageTimestamp'], false) ||
@@ -165,14 +166,13 @@ module.exports = class OwnerTag extends Plugin {
                         Array.isArray(e.props?.children) &&
                         e.props.children.find(c => c?.props?.message)
                 );
-                if (!header) return;
+                if (!header) return res;
                 let data;
 
                 const channel = channelStore.getChannel(
                     channels.getChannelId()
                 );
-                if (!channel) return;
-                const guild = getGuild(channel.guild_id);
+                const guild = getGuild(getGuildId());
                 if (guild) {
                     const member = getMember(guild.id, id);
                     if (!member) return res;
@@ -277,7 +277,7 @@ module.exports = class OwnerTag extends Plugin {
                             )
                         };
                     }
-                } else if (channel.type === 3 && channel.ownerId === id) {
+                } else if (channel && channel.type === 3 && channel.ownerId === id) {
                     // group channel
                     const tagColor = _this.settings.get(
                         'ownerTagColor',
