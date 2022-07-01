@@ -173,6 +173,7 @@ module.exports = class OwnerTag extends Plugin {
                     channels.getChannelId()
                 );
                 const guild = getGuild(getGuildId());
+                if (!guild && !channel) return res;
                 if (guild) {
                     const member = getMember(guild.id, id);
                     if (!member) return res;
@@ -277,7 +278,7 @@ module.exports = class OwnerTag extends Plugin {
                             )
                         };
                     }
-                } else if (channel && channel.type === 3 && channel.ownerId === id) {
+                } else if (channel.type === 3 && channel.ownerId === id) {
                     // group channel
                     const tagColor = _this.settings.get(
                         'ownerTagColor',
