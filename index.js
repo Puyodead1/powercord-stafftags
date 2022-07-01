@@ -121,6 +121,7 @@ module.exports = class OwnerTag extends Plugin {
     async injectMessages() {
         console.log('Injecting messages');
         const channelStore = await getModule(['getChannel', 'getDMFromUserId']);
+        const { getGuildId } = await getModule(['getLastSelectedGuildId']);
         const _this = this;
         const MessageTimestamp =
             getModule(['MessageTimestamp'], false) ||
@@ -153,11 +154,6 @@ module.exports = class OwnerTag extends Plugin {
                     return res;
                 }
                 const id = args[0].message.author.id;
-                // const user = await getUser(id)
-                // if (!user) return;
-                // if (!_this.settings.get('showBots', true) && user.bot) {
-                //     return;
-                // }
 
                 const header = findInReactTree(
                     res.props.username,
@@ -171,8 +167,10 @@ module.exports = class OwnerTag extends Plugin {
                 const channel = channelStore.getChannel(
                     channels.getChannelId()
                 );
-                if (!channel) return res;
-                const guild = getGuild(channel.guild_id);
+
+                const guild = getGuild(getGuildId());
+                if (!guild && !channel) return res;
+
                 if (guild) {
                     const member = getMember(guild.id, id);
                     if (!member) return res;

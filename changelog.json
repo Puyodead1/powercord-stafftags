@@ -6,7 +6,14 @@
             "type": "fixed",
             "header": "Fixed",
             "content": [
-                "- Fixed crash when trying to open the Home tab in servers that have it."
+                "- **Home Tab** Fixed crash when trying to open the Home tab in servers that have it."
+            ]
+        },
+        {
+            "type": "added",
+            "header": "Added",
+            "content": [
+                "- **Home Tab** Added support for showing tags in the Home tab."
             ]
         }
     ],
