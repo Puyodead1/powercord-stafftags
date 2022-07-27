@@ -119,7 +119,6 @@ module.exports = class OwnerTag extends Plugin {
     }
 
     async injectMessages() {
-        console.log('Injecting messages');
         const channelStore = await getModule(['getChannel', 'getDMFromUserId']);
         const { getGuildId } = await getModule(['getLastSelectedGuildId']);
         const _this = this;
@@ -349,7 +348,6 @@ module.exports = class OwnerTag extends Plugin {
     }
 
     async injectMembers() {
-        console.log('Injecting members');
         const _this = this;
         const MemberListItem =
             getModuleByDisplayName('MemberListItem', false) ||
