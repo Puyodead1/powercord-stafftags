@@ -27,9 +27,9 @@ module.exports = class Settings extends React.Component {
         return (
             <div>
                 <SwitchItem
-                    value={this.props.getSetting('showOwnerTag', true)}
+                    value={this.props.getSetting('showOwnerTags', true)}
                     onChange={() => {
-                        this.props.toggleSetting('showOwnerTag', true);
+                        this.props.toggleSetting('showOwnerTags', true);
                     }}
                     note="If disabled, owner tags won't show anywhere"
                 >
