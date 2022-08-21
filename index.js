@@ -70,7 +70,7 @@ const Tag = require('./Components/Tag');
 const ChangeLog = require('./ChangeLog');
 const changelog = require('./changelog.json');
 
-module.exports = class OwnerTag extends Plugin {
+module.exports = class StaffTags extends Plugin {
     constructor() {
         super();
         this.ChangeLog = new ChangeLog({
