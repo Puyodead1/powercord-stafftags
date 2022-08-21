@@ -5,15 +5,14 @@ const {
     React,
     getModule,
     getModuleByDisplayName,
-    constants,
-    channels
+    constants: {
+        Permissions
+    },
 } = require('powercord/webpack');
 const { getGuild } = getModule(['getGuild'], false);
 const {
     default: { getMember }
 } = getModule(m => m.default && m.default.getMember, false);
-
-const Permissions = constants.Permissions;
 
 const parseBitFieldPermissions = allowed => {
     const permissions = {};
@@ -119,7 +118,6 @@ module.exports = class OwnerTag extends Plugin {
     }
 
     async injectMessages() {
-        const channelStore = await getModule(['getChannel', 'getDMFromUserId']);
         const { getGuildId } = await getModule(['getLastSelectedGuildId']);
         const _this = this;
         const MessageTimestamp =
@@ -152,6 +150,14 @@ module.exports = class OwnerTag extends Plugin {
                 if (!_this.settings.get('displayMessages', true)) {
                     return res;
                 }
+
+                if (
+                    !_this.settings.get('showForBots', true) &&
+                    args[0].message.author.bot
+                ) {
+                    return res;
+                }
+
                 const id = args[0].message.author.id;
 
                 const header = findInReactTree(
@@ -163,10 +169,7 @@ module.exports = class OwnerTag extends Plugin {
                 if (!header) return res;
                 let data;
 
-                const channel = channelStore.getChannel(
-                    channels.getChannelId()
-                );
-
+                const channel = args[0].channel;
                 const guild = getGuild(getGuildId());
                 if (!guild && !channel) return res;
 
@@ -358,7 +361,6 @@ module.exports = class OwnerTag extends Plugin {
         };
         const botTagRegularClasses = await getModule(['botTagRegular']);
         const remClasses = await getModule(['rem']);
-        const userStore = getModule(['initialize', 'getCurrentUser'], false);
 
         inject(
             'ownertag-members-1',
@@ -375,9 +377,7 @@ module.exports = class OwnerTag extends Plugin {
                             return res;
                         }
 
-                        const id = this.props.user.id;
-
-                        const user = userStore.getUser(id);
+                        const user = this.props.user;
                         if (!user) return res;
 
                         // check if the user is a bot and rendering bots is enabled
@@ -390,6 +390,7 @@ module.exports = class OwnerTag extends Plugin {
 
                         let data;
 
+                        const id = user.id;
                         const guild = getGuild(this.props.channel.guild_id);
                         if (guild) {
                             const member = getMember(guild.id, id);
