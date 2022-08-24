@@ -1,19 +1,17 @@
 {
-    "date": "2022-07-1",
-    "image": "https://c.tenor.com/tt7KnU6c2-4AAAAC/bug-fix-bug.gif",
+    "date": "2022-08-23",
+    "image": "https://c.tenor.com/4blWuIh5MIYAAAAC/baby-yoda.gif",
     "body": [
         {
             "type": "fixed",
             "header": "Fixed",
-            "content": [
-                "- **Home Tab** Fixed crash when trying to open the Home tab in servers that have it."
-            ]
+            "content": ["- **Owner Tag** Fixed `showOwnerTag` setting."]
         },
         {
             "type": "added",
             "header": "Added",
             "content": [
-                "- **Home Tab** Added support for showing tags in the Home tab."
+                "- **Bot Tags** Bot tags will now show in chat when `showForBots` setting is enabled."
             ]
         }
     ],
