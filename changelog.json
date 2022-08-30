@@ -1,17 +1,12 @@
 {
-    "date": "2022-08-23",
-    "image": "https://c.tenor.com/4blWuIh5MIYAAAAC/baby-yoda.gif",
+    "date": "2022-08-30",
+    "image": "https://c.tenor.com/YE66dMAuat4AAAAC/star-wars.gif",
     "body": [
-        {
-            "type": "fixed",
-            "header": "Fixed",
-            "content": ["- **Owner Tag** Fixed `showOwnerTag` setting."]
-        },
         {
             "type": "added",
             "header": "Added",
             "content": [
-                "- **Bot Tags** Bot tags will now show in chat when `showForBots` setting is enabled."
+                "- **Per-Tag Crowns** You can now choose which tags to replace with crowns."
             ]
         }
     ],
