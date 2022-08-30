@@ -92,10 +92,79 @@ module.exports = class Settings extends React.Component {
                     onChange={() => {
                         this.props.toggleSetting('showCrowns', false);
                     }}
-                    note='If enabled, Crowns will be displayed instead of Tags'
+                    note='Enable to select what Tags to replace with Crowns. Enable to show settings.'
                 >
                     Show crowns instead of Tags
                 </SwitchItem>
+
+                {this.props.getSetting('showCrowns') && (
+                    <>
+                        <SwitchItem
+                            value={this.props.getSetting(
+                                'showServerOwnerCrown',
+                                false
+                            )}
+                            onChange={() => {
+                                this.props.toggleSetting('showServerOwnerCrown');
+                            }}
+                            note='If enabled, Crowns will be displayed instead of Tags'
+                        >
+                            Show Server Owner Crown
+                        </SwitchItem>
+
+                        <SwitchItem
+                            value={this.props.getSetting(
+                                'showGroupOwnerCrown',
+                                false
+                            )}
+                            onChange={() => {
+                                this.props.toggleSetting('showGroupOwnerCrown');
+                            }}
+                            note='If enabled, Crowns will be displayed instead of Tags'
+                        >
+                            Show Group Owner Crown
+                        </SwitchItem>
+
+                        <SwitchItem
+                            value={this.props.getSetting(
+                                'showAdminCrown',
+                                false
+                            )}
+                            onChange={() => {
+                                this.props.toggleSetting('showAdminCrown');
+                            }}
+                            note='If enabled, Crowns will be displayed instead of Tags'
+                        >
+                            Show Admin Crown
+                        </SwitchItem>
+
+                        <SwitchItem
+                            value={this.props.getSetting(
+                                'showStaffCrown',
+                                false
+                            )}
+                            onChange={() => {
+                                this.props.toggleSetting('showStaffCrown');
+                            }}
+                            note='If enabled, Crowns will be displayed instead of Tags'
+                        >
+                            Show Staff Crown
+                        </SwitchItem>
+
+                        <SwitchItem
+                            value={this.props.getSetting(
+                                'showModCrown',
+                                false
+                            )}
+                            onChange={() => {
+                                this.props.toggleSetting('showModCrown');
+                            }}
+                            note='If enabled, Crowns will be displayed instead of Tags'
+                        >
+                            Show Mod Crown
+                        </SwitchItem>
+                    </>
+                )}
 
                 <SwitchItem
                     value={this.props.getSetting('displayMembers', true)}
@@ -161,12 +230,11 @@ module.exports = class Settings extends React.Component {
                             <SwitchItem
                                 value={this.props.getSetting(
                                     'GroupOwnerColor',
-                                    true
+                                    false
                                 )}
                                 onChange={() => {
                                     this.props.toggleSetting(
-                                        'GroupOwnerColor',
-                                        true
+                                        'GroupOwnerColor'
                                     );
                                 }}
                                 note='If enabled, Group Owner tag color will be same as Server Owner tag color'

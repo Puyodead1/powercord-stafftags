@@ -167,6 +167,7 @@ module.exports = class StaffTags extends Plugin {
                         e.props.children.find(c => c?.props?.message)
                 );
                 if (!header) return res;
+                let showCrowns;
                 let data;
 
                 const channel = args[0].channel;
@@ -187,7 +188,10 @@ module.exports = class StaffTags extends Plugin {
                             '#ED9F1B'
                         );
                         const useCustomColor = _this.settings.get(
-                            'useCustomOwnerColor'
+                            'customTagColors') &&
+                            _this.settings.get('useCustomOwnerColor');
+                        showCrowns = _this.settings.get(
+                            'showServerOwnerCrown'
                         );
                         data = {
                             userType: _this.settings.get('showOwnerTags', true)
@@ -209,7 +213,10 @@ module.exports = class StaffTags extends Plugin {
                             '#B4B4B4'
                         );
                         const useCustomColor = _this.settings.get(
-                            'useCustomAdminColor'
+                            'customTagColors') &&
+                            _this.settings.get('useCustomAdminColor');
+                        showCrowns = _this.settings.get(
+                            'showAdminCrown'
                         );
                         data = {
                             userType: _this.settings.get('showAdminTags', true)
@@ -235,7 +242,10 @@ module.exports = class StaffTags extends Plugin {
                             '#8D5C51'
                         );
                         const useCustomColor = _this.settings.get(
-                            'useCustomStaffColor'
+                            'customTagColors') &&
+                            _this.settings.get('useCustomStaffColor');
+                        showCrowns = _this.settings.get(
+                            'showStaffCrown'
                         );
                         data = {
                             userType: _this.settings.get('showStaffTags', true)
@@ -261,7 +271,11 @@ module.exports = class StaffTags extends Plugin {
                             '#C8682E'
                         );
                         const useCustomColor =
+                            _this.settings.get('customTagColors') &&
                             _this.settings.get('useCustomModColor');
+                        showCrowns = _this.settings.get(
+                            'showModCrown'
+                        );
                         data = {
                             userType: _this.settings.get('showModTags', true)
                                 ? userTypes.MOD
@@ -284,7 +298,10 @@ module.exports = class StaffTags extends Plugin {
                         '#ED9F1B'
                     );
                     const useCustomColor = _this.settings.get(
-                        'useCustomOwnerColor'
+                        'customTagColors') &&
+                        _this.settings.get('GroupOwnerColor');
+                    showCrowns = _this.settings.get(
+                        'showGroupOwnerCrown'
                     );
                     data = {
                         userType: userTypes.GOWNER,
@@ -295,7 +312,7 @@ module.exports = class StaffTags extends Plugin {
                 //const element = React.createElement(Tag, { userid: id });
                 if (data && data.userType !== userTypes.NONE) {
                     // const textColor = _this.settings.get('textColor');
-                    if (_this.settings.get('showCrowns', false)) {
+                    if (_this.settings.get('showCrowns', false) && showCrowns) {
                         const element = React.createElement(
                             Tooltip,
                             {
@@ -388,6 +405,7 @@ module.exports = class StaffTags extends Plugin {
                             return res;
                         }
 
+                        let showCrowns;
                         let data;
 
                         const id = user.id;
@@ -405,7 +423,10 @@ module.exports = class StaffTags extends Plugin {
                                     '#ED9F1B'
                                 );
                                 const useCustomColor = _this.settings.get(
-                                    'useCustomOwnerColor'
+                                    'customTagColors') &&
+                                    _this.settings.get('useCustomOwnerColor');
+                                showCrowns = _this.settings.get(
+                                    'showServerOwnerCrown'
                                 );
                                 data = {
                                     userType: _this.settings.get(
@@ -430,7 +451,10 @@ module.exports = class StaffTags extends Plugin {
                                     '#B4B4B4'
                                 );
                                 const useCustomColor = _this.settings.get(
-                                    'useCustomAdminColor'
+                                    'customTagColors') &&
+                                    _this.settings.get('useCustomAdminColor');
+                                showCrowns = _this.settings.get(
+                                    'showAdminCrown'
                                 );
                                 data = {
                                     userType: _this.settings.get(
@@ -459,7 +483,10 @@ module.exports = class StaffTags extends Plugin {
                                     '#8D5C51'
                                 );
                                 const useCustomColor = _this.settings.get(
-                                    'useCustomStaffColor'
+                                    'customTagColors') &&
+                                    _this.settings.get('useCustomStaffColor');
+                                showCrowns = _this.settings.get(
+                                    'showStaffCrown'
                                 );
                                 data = {
                                     userType: _this.settings.get(
@@ -488,7 +515,11 @@ module.exports = class StaffTags extends Plugin {
                                     '#C8682E'
                                 );
                                 const useCustomColor =
+                                    _this.settings.get('customTagColors') &&
                                     _this.settings.get('useCustomModColor');
+                                showCrowns = _this.settings.get(
+                                    'showModCrown'
+                                );
                                 data = {
                                     userType: _this.settings.get(
                                         'showModTags',
@@ -517,7 +548,10 @@ module.exports = class StaffTags extends Plugin {
                                 '#ED9F1B'
                             );
                             const useCustomColor = _this.settings.get(
-                                'useCustomOwnerColor'
+                                'customTagColors') &&
+                                _this.settings.get('GroupOwnerColor');
+                            showCrowns = _this.settings.get(
+                                'showGroupOwnerCrown'
                             );
                             data = {
                                 userType: userTypes.GOWNER,
@@ -527,7 +561,7 @@ module.exports = class StaffTags extends Plugin {
                         }
 
                         if (data && data.userType !== userTypes.NONE) {
-                            if (_this.settings.get('showCrowns', false)) {
+                            if (_this.settings.get('showCrowns', false) && showCrowns) {
                                 const element = React.createElement(
                                     Tooltip,
                                     {
