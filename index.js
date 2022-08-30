@@ -188,8 +188,8 @@ module.exports = class StaffTags extends Plugin {
                             '#ED9F1B'
                         );
                         const useCustomColor = _this.settings.get(
-                            'useCustomOwnerColor'
-                        );
+                            'customTagColors') &&
+                            _this.settings.get('useCustomOwnerColor');
                         showCrowns = _this.settings.get(
                             'showServerOwnerCrown'
                         );
@@ -213,8 +213,8 @@ module.exports = class StaffTags extends Plugin {
                             '#B4B4B4'
                         );
                         const useCustomColor = _this.settings.get(
-                            'useCustomAdminColor'
-                        );
+                            'customTagColors') &&
+                            _this.settings.get('useCustomAdminColor');
                         showCrowns = _this.settings.get(
                             'showAdminCrown'
                         );
@@ -242,8 +242,8 @@ module.exports = class StaffTags extends Plugin {
                             '#8D5C51'
                         );
                         const useCustomColor = _this.settings.get(
-                            'useCustomStaffColor'
-                        );
+                            'customTagColors') &&
+                            _this.settings.get('useCustomStaffColor');
                         showCrowns = _this.settings.get(
                             'showStaffCrown'
                         );
@@ -271,6 +271,7 @@ module.exports = class StaffTags extends Plugin {
                             '#C8682E'
                         );
                         const useCustomColor =
+                            _this.settings.get('customTagColors') &&
                             _this.settings.get('useCustomModColor');
                         showCrowns = _this.settings.get(
                             'showModCrown'
@@ -297,8 +298,8 @@ module.exports = class StaffTags extends Plugin {
                         '#ED9F1B'
                     );
                     const useCustomColor = _this.settings.get(
-                        'GroupOwnerColor'
-                    );
+                        'customTagColors') &&
+                        _this.settings.get('GroupOwnerColor');
                     showCrowns = _this.settings.get(
                         'showGroupOwnerCrown'
                     );
@@ -422,8 +423,8 @@ module.exports = class StaffTags extends Plugin {
                                     '#ED9F1B'
                                 );
                                 const useCustomColor = _this.settings.get(
-                                    'useCustomOwnerColor'
-                                );
+                                    'customTagColors') &&
+                                    _this.settings.get('useCustomOwnerColor');
                                 showCrowns = _this.settings.get(
                                     'showServerOwnerCrown'
                                 );
@@ -450,8 +451,8 @@ module.exports = class StaffTags extends Plugin {
                                     '#B4B4B4'
                                 );
                                 const useCustomColor = _this.settings.get(
-                                    'useCustomAdminColor'
-                                );
+                                    'customTagColors') &&
+                                    _this.settings.get('useCustomAdminColor');
                                 showCrowns = _this.settings.get(
                                     'showAdminCrown'
                                 );
@@ -482,8 +483,8 @@ module.exports = class StaffTags extends Plugin {
                                     '#8D5C51'
                                 );
                                 const useCustomColor = _this.settings.get(
-                                    'useCustomStaffColor'
-                                );
+                                    'customTagColors') &&
+                                    _this.settings.get('useCustomStaffColor');
                                 showCrowns = _this.settings.get(
                                     'showStaffCrown'
                                 );
@@ -514,6 +515,7 @@ module.exports = class StaffTags extends Plugin {
                                     '#C8682E'
                                 );
                                 const useCustomColor =
+                                    _this.settings.get('customTagColors') &&
                                     _this.settings.get('useCustomModColor');
                                 showCrowns = _this.settings.get(
                                     'showModCrown'
@@ -546,8 +548,8 @@ module.exports = class StaffTags extends Plugin {
                                 '#ED9F1B'
                             );
                             const useCustomColor = _this.settings.get(
-                                'GroupOwnerColor'
-                            );
+                                'customTagColors') &&
+                                _this.settings.get('GroupOwnerColor');
                             showCrowns = _this.settings.get(
                                 'showGroupOwnerCrown'
                             );

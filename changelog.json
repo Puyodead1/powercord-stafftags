@@ -5,7 +5,10 @@
         {
             "type": "fixed",
             "header": "Fixed",
-            "content": ["- **Group Owner Tag** Fixed disabling `Use Custom Group owner Color` not taking effect."]
+            "content": [
+                "- **Group Owner Tag** Fixed disabling `Use Custom Group owner Color` not taking effect.",
+                "- **Custom Tag Colors** Fixed disabling `Change Tag Colors` not disabling enabled tag colors."
+            ]
         },
         {
             "type": "added",
