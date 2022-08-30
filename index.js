@@ -297,7 +297,7 @@ module.exports = class StaffTags extends Plugin {
                         '#ED9F1B'
                     );
                     const useCustomColor = _this.settings.get(
-                        'useCustomOwnerColor'
+                        'GroupOwnerColor'
                     );
                     showCrowns = _this.settings.get(
                         'showGroupOwnerCrown'
@@ -546,7 +546,7 @@ module.exports = class StaffTags extends Plugin {
                                 '#ED9F1B'
                             );
                             const useCustomColor = _this.settings.get(
-                                'useCustomOwnerColor'
+                                'GroupOwnerColor'
                             );
                             showCrowns = _this.settings.get(
                                 'showGroupOwnerCrown'

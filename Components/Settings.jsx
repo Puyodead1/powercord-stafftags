@@ -230,12 +230,11 @@ module.exports = class Settings extends React.Component {
                             <SwitchItem
                                 value={this.props.getSetting(
                                     'GroupOwnerColor',
-                                    true
+                                    false
                                 )}
                                 onChange={() => {
                                     this.props.toggleSetting(
-                                        'GroupOwnerColor',
-                                        true
+                                        'GroupOwnerColor'
                                     );
                                 }}
                                 note='If enabled, Group Owner tag color will be same as Server Owner tag color'

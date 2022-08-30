@@ -3,6 +3,11 @@
     "image": "https://c.tenor.com/YE66dMAuat4AAAAC/star-wars.gif",
     "body": [
         {
+            "type": "fixed",
+            "header": "Fixed",
+            "content": ["- **Group Owner Tag** Fixed disabling `Use Custom Group owner Color` not taking effect."]
+        },
+        {
             "type": "added",
             "header": "Added",
             "content": [
